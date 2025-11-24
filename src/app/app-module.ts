@@ -7,6 +7,8 @@ import { UsuariosAddEdit } from './components/usuarios/usuarios-add-edit/usuario
 import { UsuariosList } from './components/usuarios/usuarios-list/usuarios-list';
 import { ClienteAddEdit } from './components/clientes/cliente-add-edit/cliente-add-edit';
 import { ClienteList } from './components/clientes/cliente-list/cliente-list';
+import { RolAddEdit } from './components/roles/rol-add-edit/rol-add-edit';
+import { RolList } from './components/roles/rol-list/rol-list';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ClienteList } from './components/clientes/cliente-list/cliente-list';
     UsuariosAddEdit,
     UsuariosList,
     ClienteAddEdit,
-    ClienteList
+    ClienteList,
+    RolAddEdit,
+    RolList
   ],
   imports: [
     BrowserModule,
