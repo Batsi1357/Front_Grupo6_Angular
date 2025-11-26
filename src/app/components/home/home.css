@@ -1,0 +1,30 @@
+/* Ocupa toda la pantalla */
+:host {
+  display: block;
+  height: 100vh;
+}
+
+/* Fondo celeste claro */
+.home-container {
+  height: 100%;
+  background-color: #b3d9f7; /* celeste claro */
+}
+
+/* Barra de arriba celeste más oscuro */
+.top-bar {
+  width: 100%;
+  background-color: #4a90e2; /* celeste oscuro */
+  padding: 16px 24px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end; /* título a la derecha */
+  align-items: center;
+}
+
+/* Título "Manitos arriba" */
+.title {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
