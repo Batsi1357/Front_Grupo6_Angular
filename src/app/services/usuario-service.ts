@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { usuario } from '../models/usuario-model';
+import { JwtResponseModel } from '../models/jwtResponse';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -50,4 +52,18 @@ export class UsuarioService {
     }
     return 0;
    }
+
+
+   login (usuario:usuario){
+    return this.http.post<JwtResponseModel>(this.ruta_servidor+"/"+this.recurso+"/"+"login",usuario).pipe(
+      tap((data:JwtResponseModel)=> {
+        localStorage.setItem('token',data.token);
+      })
+    )
+   }
+
+/* getToken */
+
+    
+
 }

@@ -11,7 +11,11 @@ import { UsuarioService } from '../../services/usuario-service';
 })
 export class Home {
 
+  
+
   constructor(private usuarioService:UsuarioService, private router:Router){}
+
+
 
   ngOnInit()
   {

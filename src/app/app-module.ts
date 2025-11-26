@@ -10,9 +10,7 @@ import { ClienteList } from './components/clientes/cliente-list/cliente-list';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Login } from './clientes/login/login';
 import { Home } from './components/home/home';
-
 @NgModule({
   declarations: [
     App,
@@ -20,8 +18,8 @@ import { Home } from './components/home/home';
     UsuariosList,
     ClienteAddEdit,
     ClienteList,
-    Login,
     Home
+   
   ],
   imports: [
     BrowserModule,
