@@ -5,6 +5,7 @@ export interface unidad
     descripcion:string,
     nivel:number,
     categoria:string,
-    duracion:number
+    duracion:number,
+    logo:any
 
 }
