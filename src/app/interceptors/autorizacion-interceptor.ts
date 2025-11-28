@@ -1,23 +1,29 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { UsuarioService } from '../services/usuario-service';
-import { LoginService } from '../services/login-service';
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-export const autorizacionInterceptor: HttpInterceptorFn = (req, next) => {
-  
-    // No adjuntar header en peticiones de login
+@Injectable()
+export class AutorizacionInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.includes('/login')) {
-      return next(req);
+      return next.handle(req);
+    }
+
+    if (req.url.includes('/Usuario/login') || req.url.includes('/auth/login')) {
+      return next.handle(req);
     }
 
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
     if (token) {
-      const nuevaReq = req.clone({
-        headers: req.headers.set('Authorization',"Bearer "+token)
+      const authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      return next(nuevaReq);
+      return next.handle(authReq);
     }
 
-  return next(req);
-};
+    return next.handle(req);
+  }
+}
