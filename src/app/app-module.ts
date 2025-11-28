@@ -30,6 +30,7 @@ import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list
 import { Login } from './components/login/login';
 import { DeleteConfirmation } from './components/confimations/delete-confirmation/delete-confirmation';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor';
@@ -70,6 +71,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSnackBarModule,
     MatTableModule
     
 
