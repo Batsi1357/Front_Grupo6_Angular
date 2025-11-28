@@ -27,6 +27,7 @@ import { PreguntaAddEdit } from './components/preguntas/pregunta-add-edit/pregun
 import { RespuestaAddEdit } from './components/respuestas/respuesta-add-edit/respuesta-add-edit';
 import { RespuestaList } from './components/respuestas/respuesta-list/respuesta-list';
 import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list';
+import { Login } from './components/login/login';
 @NgModule({
   declarations: [
     App,
@@ -50,8 +51,8 @@ import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list
     PreguntaAddEdit,
     RespuestaAddEdit,
     RespuestaList,
-    PreguntaList
-   
+    PreguntaList,
+    Login
   ],
   imports: [
     BrowserModule,
