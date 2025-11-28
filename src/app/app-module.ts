@@ -31,6 +31,8 @@ import { Login } from './components/login/login';
 import { DeleteConfirmation } from './components/confimations/delete-confirmation/delete-confirmation';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    { provide: HTTP_INTERCEPTORS, useClass: AutorizacionInterceptor, multi: true }
   ],
   bootstrap: [App]
 })

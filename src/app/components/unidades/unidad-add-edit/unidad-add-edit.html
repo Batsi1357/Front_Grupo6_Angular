@@ -4,7 +4,7 @@
       <div>
         <p class="eyebrow">Unidades</p>
         <h1>{{ idUnidad > 0 ? 'Editar unidad' : 'Crear nueva unidad' }}</h1>
-        <p class="subtitle">Define los detalles básicos de la unidad y adjunta un logo opcional.</p>
+        <p class="subtitle">Define los detalles básicos de la unidad.</p>
       </div>
       <div class="badge" *ngIf="idUnidad > 0">ID: {{ idUnidad }}</div>
     </div>
@@ -49,24 +49,6 @@
         <small class="error" *ngIf="crudForm.get('descripcion')?.touched && crudForm.get('descripcion')?.invalid">
           La descripción es obligatoria (mínimo 7 caracteres).
         </small>
-      </div>
-
-      <div class="logo-section">
-        <div class="field">
-          <label for="logo">Logo (opcional)</label>
-          <input
-            id="logo"
-            type="file"
-            accept="image/*"
-            (change)="fileLogo = $event.target.files?.[0]; rutaLogo = fileLogo?.name || '';"
-          />
-          <p class="helper">Formatos recomendados: JPG o PNG. Peso máximo 2 MB.</p>
-        </div>
-
-        <div class="logo-preview" *ngIf="base64Logo">
-          <p class="eyebrow">Vista previa</p>
-          <img [src]="base64Logo" alt="Logo de la unidad" />
-        </div>
       </div>
 
       <div class="actions">

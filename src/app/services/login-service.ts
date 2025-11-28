@@ -11,7 +11,8 @@ export class LoginService {
     
 constructor(private http: HttpClient) {}
   login(request: JwtRequestModel) {
-    return this.http.post<{ token: string }>('http://localhost:8080/auth/login', request).pipe(
+    const body = { username: request.username, password: request.password };
+    return this.http.post<{ token: string }>('http://localhost:8080/auth/login', body).pipe(
       tap((resp) => {
         if (resp?.token) {
           localStorage.setItem('token', resp.token);

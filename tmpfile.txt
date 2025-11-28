@@ -15,6 +15,10 @@ export class UnidadAddEdit {
   crudForm!: FormGroup;
   idUnidad: number = 0;
 
+  rutaLogo: string = '';
+  fileLogo: any = null;
+  base64Logo: any = null;
+
   constructor(
     private unidadservice: UnidadService,
     private formBuilder: FormBuilder,
@@ -48,37 +52,37 @@ export class UnidadAddEdit {
           this.crudForm.get('nivel')?.setValue(data.nivel);
           this.crudForm.get('categoria')?.setValue(data.categoria);
           this.crudForm.get('duracion')?.setValue(data.duracion);
+          this.base64Logo = 'data:image/jpeg;base64,' + data.logo;
         },
       });
     }
   }
 
   Grabar() {
-    if (!this.crudForm.valid) {
-      this.crudForm.markAllAsTouched();
-      return;
-    }
+  if (!this.crudForm.valid) {
+    this.crudForm.markAllAsTouched();
+    return;
+  }
 
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) {
-      this.snack.open('Debes iniciar sesión antes de crear unidades.', 'OK', { duration: 3000 });
-      this.router.navigate(['/login']);
-      return;
-    }
+  const unidad: unidad = {
+    idUnidad: this.crudForm.get('idUnidad')?.value,
+    titulo: this.crudForm.get('titulo')?.value,
+    descripcion: this.crudForm.get('descripcion')?.value,
+    nivel: this.crudForm.get('nivel')?.value,
+    categoria: this.crudForm.get('categoria')?.value,
+    duracion: this.crudForm.get('duracion')?.value,
+    logo: null,  // Si no se envía el logo, asegúrate de que está manejado correctamente
+  };
 
-    const unidad: unidad = {
-      idUnidad: this.crudForm.get('idUnidad')?.value,
-      titulo: this.crudForm.get('titulo')?.value,
-      descripcion: this.crudForm.get('descripcion')?.value,
-      nivel: this.crudForm.get('nivel')?.value,
-      categoria: this.crudForm.get('categoria')?.value,
-      duracion: this.crudForm.get('duracion')?.value,
-      logo: null, // Logo deshabilitado
-    };
+  console.log('Unidad a enviar:', unidad);
 
     if (unidad.idUnidad > 0) {
       this.unidadservice.update(unidad).subscribe({
         next: (data: unidad) => {
+          if (this.fileLogo != null) {
+            this.idUnidad = data.idUnidad;
+            this.GrabarLogo();
+          }
           this.snack.open(
             'Se actualizo la unidad con el Id ' + data.idUnidad.toString(),
             'OK',
@@ -95,6 +99,11 @@ export class UnidadAddEdit {
     } else {
       this.unidadservice.new(unidad).subscribe({
         next: (data: unidad) => {
+          if (this.fileLogo != null) {
+            this.idUnidad = data.idUnidad;
+            this.GrabarLogo();
+          }
+
           this.snack.open(
             'Se agrego la unidad y se asigno el Id ' + data.idUnidad.toString(),
             'OK',
@@ -111,7 +120,21 @@ export class UnidadAddEdit {
     }
   }
 
+  GrabarLogo() {
+    const logoFormData = new FormData();
+    logoFormData.append('logo', this.fileLogo, this.rutaLogo);
+    this.unidadservice.updateLogo(this.idUnidad, logoFormData).subscribe({
+      next: () => {},
+      error: (http_error) => {
+        const msg = http_error?.error?.message || 'No se actualizo el logo solicitado.';
+        this.snack.open('ERROR: ' + msg, 'OK', { duration: 5000 });
+        console.log(http_error);
+      },
+    });
+  }
+
   cancelar(): void {
     this.router.navigate(['/home']);
   }
 }
+
