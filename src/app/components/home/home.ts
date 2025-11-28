@@ -11,18 +11,21 @@ import { UsuarioService } from '../../services/usuario-service';
 })
 export class Home {
 
-  
 
-  constructor(private usuarioService:UsuarioService, private router:Router){}
+  constructor(private router: Router) {}
 
+  goToUnidadList(): void {
+    this.router.navigate(['/unidad-list']);
+  }
 
+  goToUnidadCreate(): void {
+    this.router.navigate(['/unidad-add']);
+  }
 
-  ngOnInit()
-  {
-    if(!this.usuarioService.isLogged() )
-    {
-      this.router.navigate(["/login"]);
-    }
+  salir(): void {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
 }
