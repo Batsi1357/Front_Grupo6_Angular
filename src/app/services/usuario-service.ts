@@ -53,13 +53,50 @@ export class UsuarioService {
     return 0;
    }
 
+login(username: string, password: string) {
+  const body = { username, password }; // Asegúrate de que estos campos son correctos
+  return this.http.post<JwtResponseModel>(`${this.ruta_servidor}/${this.recurso}/login`, body).pipe(
+    tap(response => {
+      // Si el inicio de sesión es exitoso, guarda el token
+      localStorage.setItem('auth_token', response.token);
+    })
+  );
+}
 
-   login (usuario:usuario){
-    return this.http.post<JwtResponseModel>(this.ruta_servidor+"/"+this.recurso+"/"+"login",usuario).pipe(
-      tap((data:JwtResponseModel)=> {
-        localStorage.setItem('token',data.token);
-      })
-    )
+   getAuthorities(): string[] {
+    if (typeof localStorage === 'undefined') {
+      return [];
+    }
+
+    const rawToken = localStorage.getItem('token');
+    if (!rawToken) {
+      return [];
+    }
+
+    try {
+      const payloadPart = rawToken.split('.')[1];
+      if (!payloadPart) {
+        return [];
+      }
+
+      // Manejo de base64 url safe
+      const normalized = payloadPart.replace(/-/g, '+').replace(/_/g, '/');
+      const payload = JSON.parse(atob(normalized));
+
+      const rawRoles = payload.authorities || payload.roles || payload.role || payload.rol;
+      if (Array.isArray(rawRoles)) {
+        return rawRoles.map((r) => `${r}`);
+      }
+
+      if (typeof rawRoles === 'string') {
+        return rawRoles.split(',').map((r) => r.trim()).filter(Boolean);
+      }
+
+      return [];
+    } catch (e) {
+      console.error('No se pudieron obtener authorities del token', e);
+      return [];
+    }
    }
 
 /* getToken */
