@@ -17,9 +17,9 @@ export class UnidadService {
     return this.http.get<unidad[]>(this.ruta_servidor+"/"+this.recurso);
   }
 
-  new(uni:unidad)
+  new(unidad:unidad)
   {
-    return this.http.post<unidad[]>(this.ruta_servidor+"/"+this.recurso + "/insert",uni);
+    return this.http.post<unidad>(this.ruta_servidor+"/"+this.recurso + "/insert",unidad);
   }
 
   delete(idUnidad:number)
@@ -29,7 +29,7 @@ export class UnidadService {
   
   listAll_ID(idUnidad:number)
   {
-    return this.http.get<unidad[]>(this.ruta_servidor+"/"+this.recurso+"/"+idUnidad.toString());
+    return this.http.get<unidad>(this.ruta_servidor+"/"+this.recurso+"/"+idUnidad.toString());
   }
   
   update(unidad:unidad) {
@@ -65,6 +65,10 @@ export class UnidadService {
       `${this.ruta_servidor}/${this.recurso}/buscar-titulo`,
       { params }
     );
+  }
+
+  updateLogo(idUnidad: number, logoFormData: FormData){
+    return this.http.put<unidad>(this.ruta_servidor+"/"+this.recurso+"/"+"logo"+"/"+idUnidad.toString(),logoFormData);
   }
   
 }
