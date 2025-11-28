@@ -28,6 +28,10 @@ import { RespuestaAddEdit } from './components/respuestas/respuesta-add-edit/res
 import { RespuestaList } from './components/respuestas/respuesta-list/respuesta-list';
 import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list';
 import { Login } from './components/login/login';
+import { DeleteConfirmation } from './components/confimations/delete-confirmation/delete-confirmation';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+
 @NgModule({
   declarations: [
     App,
@@ -52,14 +56,20 @@ import { Login } from './components/login/login';
     RespuestaAddEdit,
     RespuestaList,
     PreguntaList,
-    Login
+    Login,
+    DeleteConfirmation,
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatTableModule
+    
 
   ],
   providers: [
