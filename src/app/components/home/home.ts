@@ -22,6 +22,10 @@ export class Home {
     this.router.navigate(['/unidad-add']);
   }
 
+  goToOrdenSubscripcionList(): void {
+    this.router.navigate(['/orden-subscripcion-list']);
+  }
+
   salir(): void {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
