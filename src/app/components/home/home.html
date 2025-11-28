@@ -4,12 +4,27 @@
 
   <!-- Barra superior -->
   <header class="top-bar">
+    <div class="top-bar-left"></div>
     <h1 class="title">Manitos arriba</h1>
+    <button class="exit-btn" (click)="salir()">Salir</button>
   </header>
 
   <!-- Contenido principal del home -->
   <main class="home-content">
-    <!-- Aquí vas a poner el resto de cosas de tu página -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Navegación</p>
+          <h2>Unidades</h2>
+          <p class="subtitle">Administra las unidades existentes o crea una nueva.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn secondary" (click)="goToUnidadList()">Ver lista de unidades</button>
+        <button class="btn primary" (click)="goToUnidadCreate()">Crear unidad</button>
+      </div>
+    </div>
   </main>
 
 </div>

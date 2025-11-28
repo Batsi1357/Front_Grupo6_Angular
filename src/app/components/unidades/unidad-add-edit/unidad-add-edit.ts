@@ -65,7 +65,7 @@ export class UnidadAddEdit {
       })
      }
   }
-   
+  
 
 
   Grabar(){
@@ -139,6 +139,10 @@ export class UnidadAddEdit {
                         console.log(http_error);
        } 
     });
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/home']);
   }
 
 }

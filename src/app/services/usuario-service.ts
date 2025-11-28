@@ -8,62 +8,74 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class UsuarioService {
+  ruta_servidor: string = 'http://localhost:8080';
+  recurso: string = 'Usuario';
 
-  ruta_servidor:string = "http://localhost:8080"; 
+  constructor(private http: HttpClient) {}
 
-  recurso:string = "Usuario"
-
-  constructor(private http:HttpClient) {}
-
-
-  listAll()
-  {
-    return this.http.get<usuario[]>(this.ruta_servidor+"/"+this.recurso);
+  listAll() {
+    return this.http.get<usuario[]>(this.ruta_servidor + '/' + this.recurso);
   }
 
-  new(usuario:usuario)
-  {
-    return this.http.post<usuario[]>(this.ruta_servidor+"/"+this.recurso,usuario+"/insert");
+  new(usuario: usuario) {
+    return this.http.post<usuario[]>(
+      this.ruta_servidor + '/' + this.recurso,
+      usuario + '/insert'
+    );
   }
 
-  delete(idUsuario:number)
-  {
-  return this.http.delete<usuario[]>(this.ruta_servidor + '/' + this.recurso + '/eliminar/' + idUsuario.toString());
+  delete(idUsuario: number) {
+    return this.http.delete<usuario[]>(
+      this.ruta_servidor +
+        '/' +
+        this.recurso +
+        '/eliminar/' +
+        idUsuario.toString()
+    );
   }
-  
-  listAll_ID(idUsuario:number)
-  {
-    return this.http.get<usuario[]>(this.ruta_servidor+"/"+this.recurso+"/"+idUsuario.toString());
+
+  listAll_ID(idUsuario: number) {
+    return this.http.get<usuario[]>(
+      this.ruta_servidor + '/' + this.recurso + '/' + idUsuario.toString()
+    );
   }
-  
+
   update(usuario: usuario) {
-    return this.http.put<usuario>(this.ruta_servidor + '/' + this.recurso + '/update',usuario);
+    return this.http.put<usuario>(
+      this.ruta_servidor + '/' + this.recurso + '/update',
+      usuario
+    );
   }
 
-  isLogged(){
-    return (this.getUserId()!=0);
+  isLogged() {
+    return this.getUserId() != 0;
   }
 
-   getUserId(){
-    if(typeof localStorage !=="undefined"){
-      if(localStorage.getItem('usuario_id')!==null) {
+  getUserId() {
+    if (typeof localStorage !== 'undefined') {
+      if (localStorage.getItem('usuario_id') !== null) {
         return parseInt(localStorage.getItem('usuario_id')!.toString());
-      }      
+      }
     }
     return 0;
-   }
+  }
 
-login(username: string, password: string) {
-  const body = { username, password }; // Asegúrate de que estos campos son correctos
-  return this.http.post<JwtResponseModel>(`${this.ruta_servidor}/${this.recurso}/login`, body).pipe(
-    tap(response => {
-      // Si el inicio de sesión es exitoso, guarda el token
-      localStorage.setItem('auth_token', response.token);
-    })
-  );
-}
+  login(username: string, password: string) {
+    const body = { username, password };
+    return this.http
+      .post<JwtResponseModel>(
+        `${this.ruta_servidor}/${this.recurso}/login`,
+        body
+      )
+      .pipe(
+        tap((response) => {
+          // Guarda el token para interceptor/guards
+          localStorage.setItem('token', response.token);
+        })
+      );
+  }
 
-   getAuthorities(): string[] {
+  getAuthorities(): string[] {
     if (typeof localStorage === 'undefined') {
       return [];
     }
@@ -83,13 +95,17 @@ login(username: string, password: string) {
       const normalized = payloadPart.replace(/-/g, '+').replace(/_/g, '/');
       const payload = JSON.parse(atob(normalized));
 
-      const rawRoles = payload.authorities || payload.roles || payload.role || payload.rol;
+      const rawRoles =
+        payload.authorities || payload.roles || payload.role || payload.rol;
       if (Array.isArray(rawRoles)) {
         return rawRoles.map((r) => `${r}`);
       }
 
       if (typeof rawRoles === 'string') {
-        return rawRoles.split(',').map((r) => r.trim()).filter(Boolean);
+        return rawRoles
+          .split(',')
+          .map((r) => r.trim())
+          .filter(Boolean);
       }
 
       return [];
@@ -97,10 +113,5 @@ login(username: string, password: string) {
       console.error('No se pudieron obtener authorities del token', e);
       return [];
     }
-   }
-
-/* getToken */
-
-    
-
+  }
 }

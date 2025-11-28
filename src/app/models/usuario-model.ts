@@ -1,7 +1,7 @@
 export interface usuario
 {
     idUsuario:number,
-    Username:string,
-    Password:string,
+    username:string,
+    password:string,
     activo:string
 }
