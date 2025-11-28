@@ -22,7 +22,7 @@ export class UnidadService {
     return this.http.post<unidad>(this.ruta_servidor+"/"+this.recurso + "/insert",unidad);
   }
 
-  delete(idUnidad:number)
+  deletebyId(idUnidad:number)
   {
   return this.http.delete<unidad[]>(this.ruta_servidor + '/' + this.recurso + '/eliminar/' + idUnidad.toString());
   }
