@@ -8,6 +8,8 @@ import { UsuariosAddEdit } from './components/usuarios/usuarios-add-edit/usuario
 import { UsuariosList } from './components/usuarios/usuarios-list/usuarios-list';
 import { ClienteAddEdit } from './components/cliente/cliente-add-edit/cliente-add-edit';
 import { ClienteList } from './components/clientes/cliente-list/cliente-list';
+import { UnidadList } from './components/unidades/unidad-list/unidad-list';
+import { UnidadAddEdit } from './components/unidades/unidad-add-edit/unidad-add-edit';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ClienteList } from './components/clientes/cliente-list/cliente-list';
     UsuariosAddEdit,
     UsuariosList,
     ClienteAddEdit,
-    ClienteList
+    ClienteList,
+    UnidadList,
+    UnidadAddEdit
   ],
   imports: [
     BrowserModule,
