@@ -1,7 +1,89 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global design tokens and shared layout classes */
+:root {
+	--bg-app: #f6f8fb;
+	--card-bg: #ffffff;
+	--primary-600: #0ea5e9;
+	--primary-500: #38bdf8;
+	--shadow-cta: 0 10px 20px rgba(14,165,233,0.18);
+	--focus-ring: rgba(14,165,233,0.08);
+	--input-bg: #f9fafb;
+	--muted-400: #e5e7eb;
+	--muted-600: #6b7280;
+	--text-900: #0f172a;
+	--text-700: #475467;
+	--danger-100: #fee2e2;
+	--danger-700: #7f1d1d;
+	--radius-lg: 16px;
+	--radius-md: 12px;
+	--card-padding: 24px;
+	--btn-radius: 10px;
+	--shadow-card: 0 12px 32px rgba(0,0,0,0.08);
+	--font-base: 'Segoe UI', system-ui, -apple-system, sans-serif;
+	--max-width-container: 1100px;
+}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: var(--font-base); background: var(--bg-app); }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Reusable card */
+.app-card {
+	background: var(--card-bg);
+	border-radius: var(--radius-lg);
+	padding: var(--card-padding);
+	box-shadow: var(--shadow-card);
+	overflow: visible;
+}
+
+/* Reusable button styles */
+.btn {
+	border: none;
+	border-radius: var(--btn-radius);
+	padding: 10px 14px;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 14px;
+}
+.btn-primary {
+	background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+	color: #fff;
+}
+.btn-ghost {
+	background: #f3f4f6;
+	color: var(--text-900);
+}
+.btn-danger {
+	background: var(--danger-100);
+	color: var(--danger-700);
+}
+
+/* Table helpers: prevent splitting rows and keep layout stable */
+.table-wrapper {
+	overflow: auto;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--muted-400);
+}
+table.custom-table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 720px;
+	table-layout: auto;
+}
+table.custom-table th,
+table.custom-table td {
+	padding: 12px 16px;
+	color: var(--text-900);
+}
+/* Prevent row/cell splitting when content flows */
+table.custom-table tr,
+table.custom-table td,
+table.custom-table th {
+	break-inside: avoid;
+	page-break-inside: avoid;
+}
+
+.list-container { max-width: var(--max-width-container); margin: 0 auto; }
+
+/* utility for small screens */
+@media (max-width:720px){
+	table.custom-table{ min-width: 520px; }
+}

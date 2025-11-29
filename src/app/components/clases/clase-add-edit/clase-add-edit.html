@@ -1,1 +1,29 @@
-<p>clase-add-edit works!</p>
+<div class="form-container">
+	<div class="form-card">
+		<div class="header">
+			<div>
+				<p class="eyebrow">Clases</p>
+				<h2>{{ idClase ? 'Editar clase' : 'Nueva clase' }}</h2>
+				<p class="subtitle">Crea o edita una clase personalizada.</p>
+			</div>
+			<div class="header-actions">
+				<button class="btn ghost" (click)="cancelar()">Cancelar</button>
+				<button class="btn secondary" routerLink="/clase-list">Ver listado</button>
+			</div>
+		</div>
+
+		<form [formGroup]="crudForm" (ngSubmit)="grabar()" class="form-grid">
+			<div class="form-group">
+				<label for="ClasePersonalizada">Nombre de la clase</label>
+				<input id="ClasePersonalizada" type="text" formControlName="ClasePersonalizada" placeholder="Nombre de la clase" />
+				<small *ngIf="crudForm.get('ClasePersonalizada')?.invalid && crudForm.get('ClasePersonalizada')?.touched">
+					Ingrese un nombre válido (mínimo 2 caracteres).
+				</small>
+			</div>
+
+			<div class="actions">
+				<button class="btn primary" type="submit">Guardar</button>
+			</div>
+		</form>
+	</div>
+</div>

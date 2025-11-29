@@ -37,6 +37,17 @@
         </small>
       </div>
 
+      <div class="form-group">
+        <label for="idClase">Clase</label>
+        <select id="idClase" formControlName="idClase">
+          <option value="">Seleccione una clase</option>
+          <option *ngFor="let c of clases" [value]="c.idClase">{{ c.ClasePersonalizada || ('Clase ' + c.idClase) }}</option>
+        </select>
+        <small *ngIf="crudForm.get('idClase')?.invalid && crudForm.get('idClase')?.touched">
+          Seleccione una clase para la subscripción.
+        </small>
+      </div>
+
       <div class="actions">
         <button class="btn primary" type="submit">Guardar</button>
       </div>

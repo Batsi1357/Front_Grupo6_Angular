@@ -30,7 +30,6 @@ export class OrdenSubscripcionList implements OnInit {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
       this.snack.open('Tu sesion no esta activa. Inicia sesion de nuevo.', 'OK', { duration: 3500 });
-      this.router.navigate(['/login']);
       return;
     }
 
@@ -57,7 +56,6 @@ export class OrdenSubscripcionList implements OnInit {
         console.log(err);
         if (err.status === 401) {
           this.snack.open('Sesion expirada o sin permisos. Inicia sesion nuevamente.', 'OK', { duration: 3500 });
-          this.router.navigate(['/login']);
           return;
         }
         this.snack.open('ERROR: no se pudo obtener la lista de ordenes de subscripcion', 'OK', {

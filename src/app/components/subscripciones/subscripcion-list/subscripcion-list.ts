@@ -29,7 +29,13 @@ export class SubscripcionList implements OnInit {
   cargarLista(): void {
     this.subscripcionService.listAll().subscribe({
       next: (data) => {
-        this.dsSubscripciones.data = data || [];
+        const normalizados = (data || []).map((item: any) => ({
+          idSubscripcion: item.idSubscripcion ?? item.id_subscripcion ?? item.id ?? 0,
+          Nombre: item.Nombre ?? item.nombre ?? '',
+          Descripcion: item.Descripcion ?? item.descripcion ?? '',
+          Precio: item.Precio ?? item.precio ?? 0,
+        }));
+        this.dsSubscripciones.data = normalizados as subscripcion[];
       },
       error: (err) => {
         console.log(err);

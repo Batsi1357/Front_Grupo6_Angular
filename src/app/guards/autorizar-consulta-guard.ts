@@ -19,7 +19,7 @@ export const autorizarConsultaGuard: CanActivateFn = (route, state) => {
   }
 
   const normalized = authorities.map((role) => role.toUpperCase());
-  const hasAccess = normalized.some((role) => role.includes('ESTUDIANTE') || role.includes('ADMIN'));
+  const hasAccess = normalized.some((role) => role.includes('Estudiante') || role.includes('Admin'));
   if (!hasAccess) {
     router.navigate(['/login']);
   }

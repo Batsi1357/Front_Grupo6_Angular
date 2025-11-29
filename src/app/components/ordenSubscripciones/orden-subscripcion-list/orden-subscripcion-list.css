@@ -1,23 +1,13 @@
 :host {
   display: block;
   padding: 24px;
-  background: #f6f8fb;
   min-height: 100vh;
   box-sizing: border-box;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-.list-container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
+.list-container { max-width: var(--max-width-container); margin: 0 auto; }
 
-.list-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-}
+.list-card { background: var(--card-bg); border-radius: var(--radius-lg); padding: var(--card-padding); box-shadow: var(--shadow-card); }
 
 .header {
   display: flex;
@@ -32,23 +22,11 @@
   gap: 8px;
 }
 
-.eyebrow {
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 12px;
-  color: #6b7280;
-  margin: 0 0 4px 0;
-}
+.eyebrow { letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; color: var(--muted-600); margin: 0 0 4px 0; }
 
-h2 {
-  margin: 0;
-  color: #0f172a;
-}
+.h2 { margin: 0; color: var(--text-900); }
 
-.subtitle {
-  margin: 4px 0 0 0;
-  color: #475467;
-}
+.subtitle { margin: 4px 0 0 0; color: var(--text-700); }
 
 .btn {
   border: none;
@@ -60,11 +38,7 @@ h2 {
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.btn.primary {
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
-  color: #fff;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
-}
+.btn.primary { background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); color: #fff; box-shadow: var(--shadow-cta); }
 
 .btn.ghost {
   background: #f3f4f6;
@@ -85,16 +59,9 @@ h2 {
   transform: translateY(-1px);
 }
 
-.table-wrapper {
-  overflow: auto;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-}
+.table-wrapper { overflow: auto; border-radius: var(--radius-md); border: 1px solid var(--muted-400); }
 
-.custom-table {
-  width: 100%;
-  min-width: 720px;
-}
+.custom-table { width: 100%; min-width: 720px; }
 
 th.mat-header-cell,
 td.mat-cell {
@@ -107,9 +74,10 @@ th.mat-header-cell {
   font-weight: 700;
 }
 
-tr.mat-row:nth-child(even) td.mat-cell {
-  background: #fafafa;
-}
+tr.mat-row:nth-child(even) td.mat-cell { background: #fafafa; }
+
+/* prevent splitting rows */
+table.custom-table tr, table.custom-table td, table.custom-table th { break-inside: avoid; page-break-inside: avoid; }
 
 .actions-col {
   text-align: right;

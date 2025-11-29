@@ -1,1 +1,37 @@
-<p>respuesta-add-edit works!</p>
+<div class="form-container">
+  <div class="form-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Respuestas</p>
+        <h2>{{ idRespuesta ? 'Editar respuesta' : 'Nueva respuesta' }}</h2>
+        <p class="subtitle">Completa los datos de la respuesta.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" (click)="cancelar()">Cancelar</button>
+        <button class="btn secondary" routerLink="/respuesta-list">Ver listado</button>
+      </div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="grabar()" class="form-grid">
+      <div class="form-group full">
+        <label for="Texto">Texto</label>
+        <textarea id="Texto" rows="3" formControlName="Texto" placeholder="Ingresa el texto de la pregunta"></textarea>
+        <small *ngIf="crudForm.get('Texto')?.invalid && crudForm.get('Texto')?.touched">
+          Ingresa el texto (mínimo 3 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group full">
+        <label for="Respuesta">Respuesta</label>
+        <textarea id="Respuesta" rows="2" formControlName="Respuesta" placeholder="Ingresa la respuesta"></textarea>
+        <small *ngIf="crudForm.get('Respuesta')?.invalid && crudForm.get('Respuesta')?.touched">
+          Ingresa la respuesta.
+        </small>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

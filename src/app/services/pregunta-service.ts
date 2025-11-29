@@ -6,10 +6,11 @@ import { pregunta } from '../models/pregunta-model';
   providedIn: 'root',
 })
 export class PreguntaService {
-    ruta_servidor:string = "http://localhost:8080";
+  ruta_servidor: string = "http://localhost:8080";
+  recurso: string = "Pregunta";
 
-  recurso:string="Pregunta";
   constructor(private http: HttpClient) {}
+
   // ----------- LISTAR TODAS -----------
   // GET /Pregunta
   listAll() {
