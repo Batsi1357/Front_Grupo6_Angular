@@ -5,5 +5,6 @@ export interface evaluacion
     descripcion:string,
     fechaInicio:string,
     duracion:number
+    idUnidad:number
 }
 
