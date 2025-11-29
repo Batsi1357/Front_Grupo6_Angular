@@ -41,6 +41,8 @@ constructor(private snack:MatSnackBar,private router:Router,private activatedRou
     const clase:clase = {
 
       idClase:this.crudForm.get("id")?.value,
+      
+
 
 
 
