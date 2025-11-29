@@ -6,10 +6,12 @@ import { ordenSubscripcion } from '../models/ordenSubscripcion-model';
   providedIn: 'root',
 })
 export class OrdenSubscripcionService {
-      ruta_servidor:string = "http://localhost:8080";
+  ruta_servidor: string = "http://localhost:8080";
+  // El backend expone /OrderSubscripcion (sin la "n" en Order)
+  recurso: string = "OrderSubscripcion";
 
-  recurso:string="OrdenSubscripcion";
   constructor(private http: HttpClient) {}
+
   // GET /OrderSubscripcion
   listAll() {
     return this.http.get<ordenSubscripcion[]>(
@@ -35,11 +37,7 @@ export class OrdenSubscripcionService {
   // PUT /OrderSubscripcion/update/{id}
   update(orden: ordenSubscripcion) {
     return this.http.put<ordenSubscripcion>(
-      this.ruta_servidor +
-        '/' +
-        this.recurso +
-        '/update/' +
-        orden.idOrdenSubscripcion,
+      this.ruta_servidor + '/' + this.recurso + '/update/' + orden.idOrdenSubscripcion,
       orden
     );
   }
@@ -47,11 +45,7 @@ export class OrdenSubscripcionService {
   // DELETE /OrderSubscripcion/eliminar/{id}
   delete(idOrdenSubscripcion: number) {
     return this.http.delete<void>(
-      this.ruta_servidor +
-        '/' +
-        this.recurso +
-        '/eliminar/' +
-        idOrdenSubscripcion.toString()
+      this.ruta_servidor + '/' + this.recurso + '/eliminar/' + idOrdenSubscripcion.toString()
     );
   }
 }

@@ -76,11 +76,9 @@ export class UsuarioService {
   }
 
   getAuthorities(): string[] {
-    if (typeof localStorage === 'undefined') {
-      return [];
-    }
-
-    const rawToken = localStorage.getItem('token');
+    const rawToken =
+      (typeof localStorage !== 'undefined' && localStorage.getItem('token')) ||
+      (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('token'));
     if (!rawToken) {
       return [];
     }
@@ -91,14 +89,23 @@ export class UsuarioService {
         return [];
       }
 
-      // Manejo de base64 url safe
+      // Manejo de base64 url safe y padding
       const normalized = payloadPart.replace(/-/g, '+').replace(/_/g, '/');
-      const payload = JSON.parse(atob(normalized));
+      const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+      const payload = JSON.parse(atob(padded));
 
       const rawRoles =
         payload.authorities || payload.roles || payload.role || payload.rol;
       if (Array.isArray(rawRoles)) {
-        return rawRoles.map((r) => `${r}`);
+        return rawRoles
+          .map((r) => {
+            // Soportar estructuras como [{authority:'ROLE_ADMIN'}]
+            if (r && typeof r === 'object' && 'authority' in r) {
+              return `${(r as any).authority}`;
+            }
+            return `${r}`;
+          })
+          .filter(Boolean);
       }
 
       if (typeof rawRoles === 'string') {

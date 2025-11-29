@@ -16,6 +16,7 @@ constructor(private http: HttpClient) {}
       tap((resp) => {
         if (resp?.token) {
           localStorage.setItem('token', resp.token);
+          sessionStorage.setItem('token', resp.token);
         }
       })
     );
