@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { subscripcion } from '../models/subscripcion-model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,8 @@ export class SubscripcionService {
   // GET http://localhost:8080/Subscripcion
   listAll() {
     return this.http.get<subscripcion[]>(
-      `${this.ruta_servidor}/${this.recurso}`
+      `${this.ruta_servidor}/${this.recurso}`,
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -24,7 +25,8 @@ export class SubscripcionService {
   create(sub: subscripcion) {
     return this.http.post<subscripcion>(
       `${this.ruta_servidor}/${this.recurso}/insert`,
-      sub
+      sub,
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -32,7 +34,8 @@ export class SubscripcionService {
   // GET http://localhost:8080/Subscripcion/{id}
   getById(id: number) {
     return this.http.get<subscripcion>(
-      `${this.ruta_servidor}/${this.recurso}/${id}`
+      `${this.ruta_servidor}/${this.recurso}/${id}`,
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -42,7 +45,8 @@ export class SubscripcionService {
   update(sub: subscripcion) {
     return this.http.put<subscripcion>(
       `${this.ruta_servidor}/${this.recurso}/update/${sub.idSubscripcion}`,
-      sub
+      sub,
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -50,7 +54,16 @@ export class SubscripcionService {
   // DELETE http://localhost:8080/Subscripcion/eliminar/{id}
   delete(id: number) {
     return this.http.delete<void>(
-      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`
+      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`,
+      { headers: this.getAuthHeaders() }
     );
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (token) {
+      return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    }
+    return new HttpHeaders();
   }
 }

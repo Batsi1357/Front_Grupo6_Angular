@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DeleteConfirmation } from '../../confimations/delete-confirmation/delete-confirmation';
 import { ordenSubscripcion } from '../../../models/ordenSubscripcion-model';
 import { OrdenSubscripcionService } from '../../../services/orden-subscripcion-service';
+import { UsuarioService } from '../../../services/usuario-service';
 
 @Component({
   selector: 'app-orden-subscripcion-list',
@@ -21,28 +22,41 @@ export class OrdenSubscripcionList implements OnInit {
     private ordenSubscripcionService: OrdenSubscripcionService,
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
-      this.snack.open('Tu sesión no está activa. Inicia sesión de nuevo.', 'OK', { duration: 3500 });
+      this.snack.open('Tu sesion no esta activa. Inicia sesion de nuevo.', 'OK', { duration: 3500 });
       this.router.navigate(['/login']);
       return;
     }
+
+    const roles = this.usuarioService.getAuthorities();
+    const normalized = roles.map((r) => r.toUpperCase());
+    console.log('Roles en orden-subscripcion-list:', normalized);
+
     this.cargarLista();
   }
 
   cargarLista(): void {
     this.ordenSubscripcionService.listAll().subscribe({
       next: (data) => {
-        this.dsOrdenes.data = data || [];
+        const normalizados = (data || []).map((item: any) => ({
+          idOrdenSubscripcion: item.idOrdenSubscripcion,
+          estado: item.estado ?? item.Estado ?? '',
+          fechaInicio: item.fechaInicio ?? item.FechaInicio ?? '',
+          fechaFin: item.fechaFin ?? item.FechaFin ?? '',
+        }));
+        console.log('Ordenes recibidas:', normalizados);
+        this.dsOrdenes.data = normalizados;
       },
       error: (err) => {
         console.log(err);
         if (err.status === 401) {
-          this.snack.open('Sesión expirada o sin permisos. Inicia sesión nuevamente.', 'OK', { duration: 3500 });
+          this.snack.open('Sesion expirada o sin permisos. Inicia sesion nuevamente.', 'OK', { duration: 3500 });
           this.router.navigate(['/login']);
           return;
         }

@@ -1,1 +1,45 @@
-<p>subscripcion-add-edit works!</p>
+<div class="form-container">
+  <div class="form-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Subscripciones</p>
+        <h2>{{ idSubscripcion ? 'Editar subscripción' : 'Nueva subscripción' }}</h2>
+        <p class="subtitle">Completa los datos de la subscripción.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" (click)="cancelar()">Cancelar</button>
+        <button class="btn secondary" routerLink="/subscripcion-list">Ver listado</button>
+      </div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="grabar()" class="form-grid">
+      <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input id="Nombre" type="text" formControlName="Nombre" placeholder="Nombre de la subscripción" />
+        <small *ngIf="crudForm.get('Nombre')?.invalid && crudForm.get('Nombre')?.touched">
+          Ingrese un nombre (mínimo 3 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group full">
+        <label for="Descripcion">Descripción</label>
+        <textarea id="Descripcion" formControlName="Descripcion" rows="3" placeholder="Describe la subscripción"></textarea>
+        <small *ngIf="crudForm.get('Descripcion')?.invalid && crudForm.get('Descripcion')?.touched">
+          Ingrese una descripción (mínimo 5 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="Precio">Precio</label>
+        <input id="Precio" type="number" formControlName="Precio" min="0" step="0.01" />
+        <small *ngIf="crudForm.get('Precio')?.invalid && crudForm.get('Precio')?.touched">
+          Ingrese un precio válido.
+        </small>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
