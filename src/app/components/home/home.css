@@ -1,7 +1,7 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: var(--bg-app);
+  background: #f3efe7;
   font-family: var(--font-base);
 }
 
@@ -11,8 +11,8 @@
 
 .top-bar {
   width: 100%;
-  background: linear-gradient(90deg, rgba(14,165,233,0.06), rgba(14,165,233,0.08));
-  padding: 16px 24px;
+  background: #245997;
+  padding: 16px 24px 10px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -20,9 +20,9 @@
 }
 
 .title {
-  color: var(--text-900);
-  font-size: 24px;
-  font-weight: 600;
+  color: #0a223c;
+  font-size: 28px;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -89,7 +89,7 @@
 .content-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 48px 48px;
+  gap: 56px 56px;
   width: 100%;
   max-width: 1500px;
 }
@@ -98,6 +98,7 @@
   background: var(--card-bg);
   border-radius: var(--radius-lg);
   padding: var(--card-padding);
+  border: 1px solid rgba(0,0,0,0.15);
   max-width: 720px;
   width: 100%;
   box-shadow: var(--shadow-card);

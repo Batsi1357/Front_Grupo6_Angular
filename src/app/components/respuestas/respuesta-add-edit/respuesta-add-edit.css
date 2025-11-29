@@ -110,9 +110,9 @@ small {
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, #f97316, #fb923c);
+  background: linear-gradient(135deg, #009fe3, #00b7ff);
   color: #fff;
-  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 183, 255, 0.25);
 }
 
 .btn.ghost {
