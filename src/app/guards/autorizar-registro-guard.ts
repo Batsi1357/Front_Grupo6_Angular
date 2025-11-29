@@ -6,14 +6,20 @@ export const autorizarRegistroGuard: CanActivateFn = (route, state) => {
   const userService = inject(UsuarioService);
   const router = inject(Router);
 
-  const authorities = userService.getAuthorities();
-  if (!authorities || authorities.length === 0) {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  if (!token) {
     router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 
+  const authorities = userService.getAuthorities();
+  // Si no vienen roles en el token, dejamos pasar (no forzamos redirección).
+  if (!authorities || authorities.length === 0) {
+    return true;
+  }
+
   const normalized = authorities.map((role) => role.toUpperCase());
-  const isAdmin = normalized.some((role) => role.includes('ADMIN'));
+  const isAdmin = normalized.some((role) => role.includes('Admin'));
   if (isAdmin) {
     return true;
   }

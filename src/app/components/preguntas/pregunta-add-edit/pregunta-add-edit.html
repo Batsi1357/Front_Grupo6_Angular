@@ -1,1 +1,50 @@
-<p>pregunta-add-edit works!</p>
+<div class="form-container">
+  <div class="form-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Preguntas</p>
+        <h2>{{ idPregunta ? 'Editar pregunta' : 'Nueva pregunta' }}</h2>
+        <p class="subtitle">Completa los datos de la pregunta.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" (click)="cancelar()">Cancelar</button>
+        <button class="btn secondary" routerLink="/pregunta-list">Ver listado</button>
+      </div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="grabar()" class="form-grid">
+      <div class="form-group full">
+        <label for="Enunciado">Enunciado</label>
+        <textarea id="Enunciado" rows="3" formControlName="Enunciado" placeholder="Escribe la pregunta"></textarea>
+        <small *ngIf="crudForm.get('Enunciado')?.invalid && crudForm.get('Enunciado')?.touched">
+          Ingresa un enunciado (mínimo 5 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="Tipo">Tipo</label>
+        <select id="Tipo" formControlName="Tipo">
+          <option value="">Seleccione un tipo</option>
+          <option value="opcion_multiple">Opción múltiple</option>
+          <option value="verdadero_falso">Verdadero/Falso</option>
+          <option value="abierta">Abierta</option>
+        </select>
+        <small *ngIf="crudForm.get('Tipo')?.invalid && crudForm.get('Tipo')?.touched">
+          Selecciona un tipo de pregunta.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="Puntaje">Puntaje</label>
+        <input id="Puntaje" type="number" min="0" step="0.1" formControlName="Puntaje" />
+        <small *ngIf="crudForm.get('Puntaje')?.invalid && crudForm.get('Puntaje')?.touched">
+          Ingresa un puntaje válido.
+        </small>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

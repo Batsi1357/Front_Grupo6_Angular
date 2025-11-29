@@ -19,7 +19,7 @@ export class OportunidadService {
   }
 
   // GET /Oportunidad/{id}
-  listAll_ID(idOportunidad: number) {
+  getById(idOportunidad: number) {
     return this.http.get<oportunidad>(
       this.ruta_servidor +
         '/' +
@@ -30,11 +30,21 @@ export class OportunidadService {
   }
 
   // POST /Oportunidad/insert
-  new(oportunidad: oportunidad) {
+  create(oportunidad: oportunidad) {
     return this.http.post<oportunidad>(
       this.ruta_servidor + '/' + this.recurso + '/insert',
       oportunidad
     );
+  }
+
+  // Deprecated: use getById instead
+  listAll_ID(idOportunidad: number) {
+    return this.getById(idOportunidad);
+  }
+
+  // Deprecated: use create instead
+  new(oportunidad: oportunidad) {
+    return this.create(oportunidad);
   }
 
   // PUT /Oportunidad/update/{id}

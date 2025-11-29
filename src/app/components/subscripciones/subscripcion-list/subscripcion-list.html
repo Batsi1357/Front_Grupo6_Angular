@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="table-wrapper" *ngIf="dsSubscripciones?.data?.length; else emptyState">
+    <div class="table-wrapper" *ngIf="dsSubscripciones.data.length; else emptyState">
       <table mat-table [dataSource]="dsSubscripciones" class="mat-elevation-z0 custom-table">
 
         <ng-container matColumnDef="id">

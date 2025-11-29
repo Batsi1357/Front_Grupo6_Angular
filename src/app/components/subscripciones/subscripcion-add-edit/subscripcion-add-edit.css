@@ -83,8 +83,22 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 14px;
+  outline: none;
+}
+
+select:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 small {
@@ -109,11 +123,11 @@ small {
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.btn.primary {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: #fff;
-  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
-}
+  .btn.primary {
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    color: #fff;
+    box-shadow: var(--shadow-cta);
+  }
 
 .btn.ghost {
   background: #f3f4f6;

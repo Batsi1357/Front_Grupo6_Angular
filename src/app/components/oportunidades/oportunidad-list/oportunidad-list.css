@@ -50,7 +50,7 @@ h2 {
 }
 
 .btn { transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
-.btn.primary { background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); color: #fff; box-shadow: 0 10px 20px rgba(16,185,129,0.25); }
+.btn.primary { background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); color: #fff; box-shadow: var(--shadow-cta); }
 .btn.ghost { background: #f3f4f6; color: var(--text-900); }
 .btn.secondary { background: var(--muted-400); color: var(--text-900); }
 .btn.danger { background: var(--danger-100); color: var(--danger-700); }
