@@ -21,6 +21,17 @@
 				</small>
 			</div>
 
+			<div class="form-group">
+				<label for="unidadId">Unidad</label>
+				<select id="unidadId" formControlName="unidadId">
+					<option value="">Seleccione una unidad</option>
+					<option *ngFor="let u of unidades" [value]="u.idUnidad">{{ u.titulo || ('Unidad ' + u.idUnidad) }}</option>
+				</select>
+				<small *ngIf="crudForm.get('unidadId')?.invalid && crudForm.get('unidadId')?.touched">
+					Seleccione una unidad.
+				</small>
+			</div>
+
 			<div class="actions">
 				<button class="btn primary" type="submit">Guardar</button>
 			</div>
