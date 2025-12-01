@@ -46,8 +46,8 @@ export class OportunidadAddEdit implements OnInit {
     this.oportunidadService.getById(id).subscribe({
       next: (data: any) => {
         this.crudForm.patchValue({
-          Intento: data.Intento ?? data.intento ?? '',
-          FechaInicio: data.FechaInicio ?? data.fecha_inicio ?? '',
+          Intento: data.intento ?? data.Intento ?? '',
+          FechaInicio: data.fechaInicio ?? data.FechaInicio ?? data.fecha_inicio ?? '',
         });
       },
       error: () => {
@@ -63,10 +63,10 @@ export class OportunidadAddEdit implements OnInit {
       return;
     }
 
-    const datos: oportunidad = {
+    const datos: any = {
       idOportunidad: this.idOportunidad || 0,
-      Intento: this.crudForm.get('Intento')?.value,
-      FechaInicio: this.crudForm.get('FechaInicio')?.value,
+      intento: this.crudForm.get('Intento')?.value,
+      fechaInicio: this.crudForm.get('FechaInicio')?.value,
     };
 
     if (this.esEdicion) {

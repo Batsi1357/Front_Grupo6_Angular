@@ -13,13 +13,13 @@ export const autorizarConsultaGuard: CanActivateFn = (route, state) => {
   }
 
   const authorities = userService.getAuthorities();
-  // Si hay token pero no roles (ej. payload sin authorities), dejamos pasar.
+  // Si el token no trae roles, dejamos pasar y dejamos al backend decidir.
   if (!authorities || authorities.length === 0) {
     return true;
   }
 
   const normalized = authorities.map((role) => role.toUpperCase());
-  const hasAccess = normalized.some((role) => role.includes('Estudiante') || role.includes('Admin'));
+  const hasAccess = normalized.some((role) => role.includes('ESTUDIANTE') || role.includes('ADMIN'));
   if (!hasAccess) {
     router.navigate(['/login']);
   }

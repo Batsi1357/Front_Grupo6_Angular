@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { respuesta } from '../models/respuesta-model';
 
@@ -11,11 +11,25 @@ export class RespuestaService {
 
   constructor(private http: HttpClient) {}
 
+  private authHeaders() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+      console.warn('No hay token en storage; la petición no llevará Authorization');
+      return {};
+    }
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+  }
+
   // ----------- LISTAR TODOS -----------
   // GET http://localhost:8080/Respuesta
   listAll() {
     return this.http.get<respuesta[]>(
-      `${this.ruta_servidor}/${this.recurso}`
+      `${this.ruta_servidor}/${this.recurso}`,
+      this.authHeaders()
     );
   }
 
@@ -23,7 +37,8 @@ export class RespuestaService {
   // GET http://localhost:8080/Respuesta/{id}
   getById(id: number) {
     return this.http.get<respuesta>(
-      `${this.ruta_servidor}/${this.recurso}/${id}`
+      `${this.ruta_servidor}/${this.recurso}/${id}`,
+      this.authHeaders()
     );
   }
 
@@ -32,7 +47,8 @@ export class RespuestaService {
   create(respuesta: respuesta) {
     return this.http.post<respuesta>(
       `${this.ruta_servidor}/${this.recurso}/insert`,
-      respuesta
+      respuesta,
+      this.authHeaders()
     );
   }
 
@@ -41,7 +57,8 @@ export class RespuestaService {
   update(respuesta: respuesta) {
     return this.http.put<respuesta>(
       `${this.ruta_servidor}/${this.recurso}/update/${respuesta.idRespuesta}`,
-      respuesta
+      respuesta,
+      this.authHeaders()
     );
   }
 
@@ -49,7 +66,8 @@ export class RespuestaService {
   // DELETE http://localhost:8080/Respuesta/eliminar/{id}
   delete(id: number) {
     return this.http.delete<void>(
-      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`
+      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`,
+      this.authHeaders()
     );
   }
 }
