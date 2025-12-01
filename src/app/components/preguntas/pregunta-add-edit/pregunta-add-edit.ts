@@ -33,6 +33,7 @@ export class PreguntaAddEdit {
       Enunciado: ['', [Validators.required, Validators.minLength(5)]],
       Tipo: ['', [Validators.required]],
       Puntaje: [0, [Validators.required, Validators.min(0)]],
+      idEvaluacion: [null, [Validators.required]],
     });
 
     this.idPregunta = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -40,7 +41,13 @@ export class PreguntaAddEdit {
     if (this.idPregunta > 0 && !Number.isNaN(this.idPregunta)) {
       this.preguntaService.getById(this.idPregunta).subscribe({
         next: (data: pregunta) => {
-          this.crudForm.patchValue(data);
+          this.crudForm.patchValue({
+            idPregunta: data.idPregunta,
+            Enunciado: (data as any).Enunciado ?? (data as any).enunciado ?? '',
+            Tipo: (data as any).Tipo ?? (data as any).tipo ?? '',
+            Puntaje: (data as any).Puntaje ?? (data as any).puntaje ?? 0,
+            idEvaluacion: (data as any).evaluacionId ?? (data as any).idEvaluacion ?? null,
+          });
         },
         error: (err) => {
           console.log(err);
@@ -56,7 +63,16 @@ export class PreguntaAddEdit {
       return;
     }
 
-    const payload: pregunta = this.crudForm.value;
+    const payload: any = {
+      idPregunta: this.crudForm.get('idPregunta')?.value || 0,
+      // enviar en minúsculas para que el backend mapee DTO (enunciado/tipo/puntaje)
+      enunciado: this.crudForm.get('Enunciado')?.value,
+      tipo: this.crudForm.get('Tipo')?.value,
+      puntaje: Number(this.crudForm.get('Puntaje')?.value),
+      // enviar ambas variantes de evaluación por compatibilidad
+      evaluacionId: Number(this.crudForm.get('idEvaluacion')?.value),
+      idEvaluacion: Number(this.crudForm.get('idEvaluacion')?.value),
+    };
 
     if (payload.idPregunta > 0) {
       this.preguntaService.update(payload).subscribe({

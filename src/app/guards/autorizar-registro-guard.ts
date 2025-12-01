@@ -13,13 +13,13 @@ export const autorizarRegistroGuard: CanActivateFn = (route, state) => {
   }
 
   const authorities = userService.getAuthorities();
-  // Si no vienen roles en el token, dejamos pasar (no forzamos redirección).
+  // Si el token no trae roles, dejamos pasar y que el backend decida.
   if (!authorities || authorities.length === 0) {
     return true;
   }
 
   const normalized = authorities.map((role) => role.toUpperCase());
-  const isAdmin = normalized.some((role) => role.includes('Admin'));
+  const isAdmin = normalized.some((role) => role.includes('ADMIN'));
   if (isAdmin) {
     return true;
   }

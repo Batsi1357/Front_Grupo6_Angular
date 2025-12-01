@@ -26,6 +26,7 @@ export class EvaluacionAddEdit {
 
  ngOnInit(){
     this.CargarFormulario();
+    // no hay dropdown de unidades aquí; asegurarse de que el usuario la ingrese
   }
 
 
@@ -37,7 +38,7 @@ CargarFormulario(){
        descripcion:["",[Validators.required, Validators.minLength(7)]],
        fechaInicio:[""],
        duracion:[""],
-       idUnidad:[""],
+       idUnidad:["", Validators.required],
 
     }
   );
@@ -62,13 +63,20 @@ CargarFormulario(){
 
 Grabar(){
 
+    if (this.crudForm.invalid) {
+      this.crudForm.markAllAsTouched();
+      return;
+    }
+
     const evaluacion:evaluacion= {
       idEvaluacion:this.crudForm.get("idEvaluacion")?.value,
       titulo:this.crudForm.get("titulo")?.value,
       descripcion:this.crudForm.get("descripcion")?.value,
       fechaInicio:this.crudForm.get("fechaInicio")?.value,
       duracion:this.crudForm.get("duracion")?.value,
-      idUnidad:this.crudForm.get("idUnidad")?.value
+      // Enviamos ambas variantes para compatibilidad con el DTO (Unidadid / idUnidad)
+      idUnidad:Number(this.crudForm.get("idUnidad")?.value),
+      unidadid:Number(this.crudForm.get("idUnidad")?.value)
     };
 
 

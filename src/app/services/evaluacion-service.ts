@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { evaluacion } from '../models/evaluacion-model';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +12,32 @@ export class EvaluacionService {
 
   constructor(private http: HttpClient) {}
 
+  private authHeaders() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+      console.warn('No hay token en storage; la petición no llevará Authorization');
+      return {};
+    }
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+  }
+
   // GET /Evaluacion
   listAll() {
     return this.http.get<evaluacion[]>(
-      `${this.ruta_servidor}/${this.recurso}`
+      `${this.ruta_servidor}/${this.recurso}`,
+      this.authHeaders()
     );
   }
 
   // GET /Evaluacion/{id}
   listById(idEvaluacion: number) {
     return this.http.get<evaluacion>(
-      `${this.ruta_servidor}/${this.recurso}/${idEvaluacion}`
+      `${this.ruta_servidor}/${this.recurso}/${idEvaluacion}`,
+      this.authHeaders()
     );
   }
 
@@ -29,7 +45,8 @@ export class EvaluacionService {
   new(evaluacion: evaluacion) {
     return this.http.post<evaluacion>(
       `${this.ruta_servidor}/${this.recurso}/insert`,
-      evaluacion
+      evaluacion,
+      this.authHeaders()
     );
   }
 
@@ -37,14 +54,16 @@ export class EvaluacionService {
   update(evaluacion: evaluacion) {
     return this.http.put<evaluacion>(
       `${this.ruta_servidor}/${this.recurso}/update`,
-      evaluacion
+      evaluacion,
+      this.authHeaders()
     );
   }
 
   // DELETE /Evaluacion/eliminar/{id}
   delete(idEvaluacion: number) {
     return this.http.delete<void>(
-      `${this.ruta_servidor}/${this.recurso}/eliminar/${idEvaluacion}`
+      `${this.ruta_servidor}/${this.recurso}/eliminar/${idEvaluacion}`,
+      this.authHeaders()
     );
   }
 

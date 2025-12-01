@@ -4,7 +4,8 @@ export interface evaluacion
     titulo:string,
     descripcion:string,
     fechaInicio:string,
-    duracion:number
-    idUnidad:number
+    duracion:number,
+    idUnidad:number,
+    // Enviado para compatibilidad con DTO backend que usa "unidadid"
+    unidadid?:number
 }
-

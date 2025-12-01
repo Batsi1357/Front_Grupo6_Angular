@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClaseService } from '../../../services/clase-service';
 import { clase } from '../../../models/clase-model';
+import { UnidadService } from '../../../services/unidad-service';
+import { unidad } from '../../../models/unidad-model';
 
 @Component({
   selector: 'app-clase-add-edit',
@@ -14,10 +16,12 @@ import { clase } from '../../../models/clase-model';
 export class ClaseAddEdit implements OnInit {
   crudForm!: FormGroup;
   idClase = 0;
+  unidades: unidad[] = [];
 
   constructor(
     private fb: FormBuilder,
     private claseService: ClaseService,
+    private unidadService: UnidadService,
     private snack: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute
@@ -25,12 +29,24 @@ export class ClaseAddEdit implements OnInit {
 
   ngOnInit(): void {
     this.cargarFormulario();
+    this.cargarUnidades();
+  }
+
+  cargarUnidades(): void {
+    this.unidadService.listAll().subscribe({
+      next: (lista) => (this.unidades = lista || []),
+      error: (err) => {
+        console.log(err);
+        this.snack.open('No se pudo cargar la lista de unidades', 'OK', { duration: 4000 });
+      },
+    });
   }
 
   cargarFormulario(): void {
     this.crudForm = this.fb.group({
       idClase: [''],
       ClasePersonalizada: ['', [Validators.required, Validators.minLength(2)]],
+      unidadId: [null, Validators.required],
     });
 
     const paramId = this.route.snapshot.params['id'];
@@ -45,6 +61,7 @@ export class ClaseAddEdit implements OnInit {
           this.crudForm.patchValue({
             idClase: record?.idClase ?? record?.id ?? this.idClase,
             ClasePersonalizada: nombre,
+            unidadId: record?.unidadId ?? record?.unidad_id ?? record?.unidad?.idUnidad ?? null,
           });
         },
         error: (err) => {
@@ -64,7 +81,12 @@ export class ClaseAddEdit implements OnInit {
 
     const payload: any = {
       idClase: this.crudForm.get('idClase')?.value || 0,
+      // Mandamos ambas variantes de nombre de campo para que Jackson/DTO las mapee
+      clasePersonalizada: this.crudForm.get('ClasePersonalizada')?.value,
       ClasePersonalizada: this.crudForm.get('ClasePersonalizada')?.value,
+      // Enviamos ambas variantes para asegurar compatibilidad con el DTO (UnidadId/ unidadId)
+      unidadId: Number(this.crudForm.get('unidadId')?.value),
+      UnidadId: Number(this.crudForm.get('unidadId')?.value),
     };
 
     if (payload.idClase > 0) {

@@ -45,7 +45,7 @@ export class UnidadAddEdit {
           this.crudForm.get('idUnidad')?.setValue(data.idUnidad);
           this.crudForm.get('titulo')?.setValue(data.titulo);
           this.crudForm.get('descripcion')?.setValue(data.descripcion);
-          this.crudForm.get('nivel')?.setValue(data.nivel);
+          this.crudForm.get('nivel')?.setValue(data.nivel?.toString());
           this.crudForm.get('categoria')?.setValue(data.categoria);
           this.crudForm.get('duracion')?.setValue(data.duracion);
         },
@@ -70,9 +70,9 @@ export class UnidadAddEdit {
       idUnidad: this.crudForm.get('idUnidad')?.value,
       titulo: this.crudForm.get('titulo')?.value,
       descripcion: this.crudForm.get('descripcion')?.value,
-      nivel: this.crudForm.get('nivel')?.value,
+      nivel: Number(this.crudForm.get('nivel')?.value),
       categoria: this.crudForm.get('categoria')?.value,
-      duracion: this.crudForm.get('duracion')?.value,
+      duracion: Number(this.crudForm.get('duracion')?.value),
       logo: null, // Logo deshabilitado
     };
 

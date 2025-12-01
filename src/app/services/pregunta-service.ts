@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { pregunta } from '../models/pregunta-model';
 
@@ -11,11 +11,25 @@ export class PreguntaService {
 
   constructor(private http: HttpClient) {}
 
+  private authHeaders() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+      console.warn('No hay token en storage; la petición no llevará Authorization');
+      return {};
+    }
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+  }
+
   // ----------- LISTAR TODAS -----------
   // GET /Pregunta
   listAll() {
     return this.http.get<pregunta[]>(
-      `${this.ruta_servidor}/${this.recurso}`
+      `${this.ruta_servidor}/${this.recurso}`,
+      this.authHeaders()
     );
   }
 
@@ -23,7 +37,8 @@ export class PreguntaService {
   // GET /Pregunta/{id}
   getById(id: number) {
     return this.http.get<pregunta>(
-      `${this.ruta_servidor}/${this.recurso}/${id}`
+      `${this.ruta_servidor}/${this.recurso}/${id}`,
+      this.authHeaders()
     );
   }
 
@@ -32,7 +47,8 @@ export class PreguntaService {
   create(pregunta: pregunta) {
     return this.http.post<pregunta>(
       `${this.ruta_servidor}/${this.recurso}/insert`,
-      pregunta
+      pregunta,
+      this.authHeaders()
     );
   }
 
@@ -41,7 +57,8 @@ export class PreguntaService {
   update(pregunta: pregunta) {
     return this.http.put<pregunta>(
       `${this.ruta_servidor}/${this.recurso}/update/${pregunta.idPregunta}`,
-      pregunta
+      pregunta,
+      this.authHeaders()
     );
   }
 
@@ -49,7 +66,8 @@ export class PreguntaService {
   // DELETE /Pregunta/eliminar/{id}
   delete(id: number) {
     return this.http.delete<void>(
-      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`
+      `${this.ruta_servidor}/${this.recurso}/eliminar/${id}`,
+      this.authHeaders()
     );
   }
 }

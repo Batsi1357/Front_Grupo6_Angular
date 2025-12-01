@@ -11,7 +11,7 @@ import { clase } from '../../../models/clase-model';
   selector: 'app-subscripcion-add-edit',
   standalone: false,
   templateUrl: './subscripcion-add-edit.html',
-  styleUrl: './subscripcion-add-edit.css',
+  styleUrls: ['./subscripcion-add-edit.css'],
 })
 export class SubscripcionAddEdit {
   crudForm!: FormGroup;
@@ -90,8 +90,10 @@ export class SubscripcionAddEdit {
       Nombre: subForm.Nombre,
       Descripcion: subForm.Descripcion,
       Precio: subForm.Precio,
-      idClase: subForm.idClase,
-      clase: subForm.idClase ? { idClase: subForm.idClase } : undefined,
+      // el backend espera "claseid" en el DTO
+      claseid: subForm.idClase ? Number(subForm.idClase) : null,
+      idClase: subForm.idClase ? Number(subForm.idClase) : null,
+      clase: subForm.idClase ? { idClase: Number(subForm.idClase) } : undefined,
     };
 
     if (payload.idSubscripcion > 0) {
