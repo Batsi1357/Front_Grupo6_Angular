@@ -22,6 +22,14 @@
       </div>
 
       <div class="form-group">
+        <label for="idEvaluacion">Evaluación</label>
+        <input id="idEvaluacion" type="number" min="1" formControlName="idEvaluacion" placeholder="ID de la evaluación" />
+        <small *ngIf="crudForm.get('idEvaluacion')?.invalid && crudForm.get('idEvaluacion')?.touched">
+          Ingresa el ID de la evaluación.
+        </small>
+      </div>
+
+      <div class="form-group">
         <label for="Tipo">Tipo</label>
         <select id="Tipo" formControlName="Tipo">
           <option value="">Seleccione un tipo</option>

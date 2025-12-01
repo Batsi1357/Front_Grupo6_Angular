@@ -33,10 +33,19 @@ export class ClaseList implements OnInit {
       next: (data: any) => {
         // Some backends return a wrapper { value: [...], Count: n }
         const items = Array.isArray(data) ? data : data?.value ?? [];
-        const normalized = (items || []).map((it: any) => ({
-          idClase: it.idClase ?? it.id ?? 0,
-          ClasePersonalizada: it.ClasePersonalizada ?? it.clasePersonalizada ?? it.clasepersonalizada ?? it.clase ?? '',
-        } as clase));
+        const normalized = (items || [])
+          .map((it: any) => ({
+            idClase: it.idClase ?? it.id_clase ?? it.id ?? 0,
+            ClasePersonalizada:
+              it.ClasePersonalizada ??
+              it.clasePersonalizada ??
+              it.clase_personalizada ??
+              it.clasepersonalizada ??
+              it.clase ??
+              '',
+          }))
+          // ordenar por id para que no se vea desordenado
+          .sort((a: any, b: any) => (a.idClase ?? 0) - (b.idClase ?? 0));
         this.dsClases = new MatTableDataSource(normalized);
       },
       error: (err) => {

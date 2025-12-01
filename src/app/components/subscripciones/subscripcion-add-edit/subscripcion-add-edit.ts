@@ -11,7 +11,7 @@ import { clase } from '../../../models/clase-model';
   selector: 'app-subscripcion-add-edit',
   standalone: false,
   templateUrl: './subscripcion-add-edit.html',
-  styleUrls: ['./subscripcion-add-edit.css'],
+  styleUrl: './subscripcion-add-edit.css',
 })
 export class SubscripcionAddEdit {
   crudForm!: FormGroup;

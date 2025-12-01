@@ -43,8 +43,9 @@ export class RespuestaList implements OnInit {
 
         const normalizados = (lista || []).map((r: any) => ({
           idRespuesta: r.idRespuesta ?? r.id_respuesta ?? r.id ?? 0,
-          Texto: r.Texto ?? r.texto ?? '',
-          Respuesta: r.Respuesta ?? r.respuesta ?? '',
+          Texto: r.texto ?? r.Texto ?? r.texto_respuesta ?? '',
+          Respuesta: r.respuesta ?? r.Respuesta ?? '',
+          preguntaId: r.preguntaId ?? r.pregunta_id ?? r.preguntaid ?? null,
         }));
         this.dsRespuestas.data = normalizados as respuesta[];
       },
