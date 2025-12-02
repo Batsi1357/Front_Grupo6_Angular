@@ -1,1 +1,55 @@
-<p>orden-subscripcion-add-edit works!</p>
+<div class="orden-container">
+	<div class="orden-card">
+		<div class="header">
+			<div>
+				<p class="eyebrow">Órdenes</p>
+				<h1>{{ idOrden > 0 ? 'Editar orden de subscripción' : 'Crear nueva orden de subscripción' }}</h1>
+				<p class="subtitle">Asigna una subscripción y un usuario a la orden.</p>
+			</div>
+			<div class="badge" *ngIf="idOrden > 0">ID: {{ idOrden }}</div>
+		</div>
+
+		<form [formGroup]="crudForm" (ngSubmit)="Grabar()" novalidate>
+			<div class="form-grid">
+				<div class="field">
+					<label for="estado">Estado *</label>
+					<input id="estado" type="text" formControlName="estado" placeholder="Ej. ACTIVADA" />
+					<small class="error" *ngIf="crudForm.get('estado')?.touched && crudForm.get('estado')?.invalid">
+						El estado es obligatorio (mínimo 3 caracteres).
+					</small>
+				</div>
+
+				<div class="field">
+					<label for="fechaInicio">Fecha inicio *</label>
+					<input id="fechaInicio" type="date" formControlName="fechaInicio" />
+				</div>
+
+				<div class="field">
+					<label for="fechaFin">Fecha fin</label>
+					<input id="fechaFin" type="date" formControlName="fechaFin" />
+				</div>
+
+				<div class="field">
+					<label for="idSubscripcion">Subscripción</label>
+					<select id="idSubscripcion" formControlName="idSubscripcion">
+						<option value="">-- Selecciona una subscripción --</option>
+						<option *ngFor="let s of subscripciones" [value]="s.idSubscripcion">{{ s.Nombre }} - ${{ s.Precio }}</option>
+					</select>
+				</div>
+
+				<div class="field">
+					<label for="idUsuario">Usuario</label>
+					<select id="idUsuario" formControlName="idUsuario">
+						<option value="">-- Selecciona un usuario --</option>
+						<option *ngFor="let u of usuarios" [value]="u.idUsuario">{{ u.username }} (ID: {{ u.idUsuario }})</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="actions">
+				<button type="button" class="btn ghost" (click)="cancelar()">Cancelar</button>
+				<button type="submit" class="btn primary" [disabled]="crudForm.invalid">{{ idOrden > 0 ? 'Actualizar orden' : 'Crear orden' }}</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,6 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { UsuariosAddEdit } from './components/usuarios/usuarios-add-edit/usuarios-add-edit';
@@ -53,7 +53,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
     SubscripcionList,
     OportunidadAddEdit,
     OportunidadList,
-    OrdenSubscripcionAddEdit,
+    OrdenSubscripcionAddEdit, 
     OrdenSubscripcionList,
     PreguntaAddEdit,
     RespuestaAddEdit,
@@ -65,7 +65,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
     
   ],
   imports: [
-    BrowserModule,
+     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -77,7 +77,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
 
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(),
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AutorizacionInterceptor, multi: true }
   ],
   bootstrap: [App]

@@ -3,16 +3,22 @@ import { Injectable } from '@angular/core';
 import { JwtRequestModel } from '../models/jwtRequest';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  ruta_servidor: string = environment.apiUrl;
+
     
 constructor(private http: HttpClient) {}
   login(request: JwtRequestModel) {
-    const body = { username: request.username, password: request.password };
-    return this.http.post<{ token: string }>('http://localhost:8080/auth/login', body).pipe(
+  const body = { username: request.username, password: request.password };
+
+  return this.http
+    .post<{ token: string }>(`${this.ruta_servidor}/auth/Login`, body)
+    .pipe(
       tap((resp) => {
         if (resp?.token) {
           localStorage.setItem('token', resp.token);

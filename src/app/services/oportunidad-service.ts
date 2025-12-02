@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { oportunidad } from '../models/oportunidad-model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OportunidadService {
-  ruta_servidor: string = 'http://localhost:8080';
+  ruta_servidor: string = environment.apiUrl;
   recurso: string = 'Oportunidad';
 
   constructor(private http: HttpClient) {}

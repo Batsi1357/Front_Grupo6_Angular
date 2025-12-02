@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { usuario } from '../models/usuario-model';
 import { JwtResponseModel } from '../models/jwtResponse';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  ruta_servidor: string = 'http://localhost:8080';
+  ruta_servidor: string = environment.apiUrl;
   recurso: string = 'Usuario';
 
   constructor(private http: HttpClient) {}

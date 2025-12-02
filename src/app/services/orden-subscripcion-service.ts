@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ordenSubscripcion } from '../models/ordenSubscripcion-model';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdenSubscripcionService {
-  ruta_servidor: string = "http://localhost:8080";
+  ruta_servidor: string = environment.apiUrl;
   // El backend expone /OrderSubscripcion (sin la "n" en Order)
   recurso: string = "OrderSubscripcion";
 
@@ -14,9 +15,7 @@ export class OrdenSubscripcionService {
 
   // GET /OrderSubscripcion
   listAll() {
-    return this.http.get<ordenSubscripcion[]>(
-      this.ruta_servidor + '/' + this.recurso
-    );
+    return this.http.get<ordenSubscripcion[]>(this.ruta_servidor + '/' + this.recurso);
   }
 
   // GET /OrderSubscripcion/{id}
@@ -28,10 +27,7 @@ export class OrdenSubscripcionService {
 
   // POST /OrderSubscripcion/insert
   new(orden: ordenSubscripcion) {
-    return this.http.post<ordenSubscripcion>(
-      this.ruta_servidor + '/' + this.recurso + '/insert',
-      orden
-    );
+    return this.http.post<ordenSubscripcion>(this.ruta_servidor + '/' + this.recurso + '/insert', orden);
   }
 
   // PUT /OrderSubscripcion/update/{id}

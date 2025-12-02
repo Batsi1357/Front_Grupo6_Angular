@@ -2,13 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { unidad } from '../models/unidad-model';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnidadService {
-   ruta_servidor:string = "http://localhost:8080";
-
+   ruta_servidor:string = environment.apiUrl;
   recurso:string="Unidad";
 
   constructor(private http:HttpClient){}
