@@ -27,6 +27,7 @@ export class AutorizacionInterceptor implements HttpInterceptor {
         },
       });
       console.log('Request con token:', authReq.headers.get('Authorization'));
+      console.log('Request headers keys:', authReq.headers.keys());
       return next.handle(authReq).pipe(
         catchError((err) => {
           if (err.status === 401) {
