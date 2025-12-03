@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { unidad } from '../models/unidad-model';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

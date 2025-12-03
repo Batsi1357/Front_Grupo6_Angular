@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { usuario } from '../models/usuario-model';
 import { JwtResponseModel } from '../models/jwtResponse';
 import { tap } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,9 +18,17 @@ export class UsuarioService {
   }
 
   new(usuario: usuario) {
-    return this.http.post<usuario[]>(
-      this.ruta_servidor + '/' + this.recurso,
-      usuario + '/insert'
+    return this.http.post<usuario>(
+      this.ruta_servidor + '/' + this.recurso + '/insert',
+      usuario
+    );
+  }
+
+  register(usuario: usuario) {
+    // Endpoint para registro público de nuevos usuarios
+    return this.http.post<usuario>(
+      this.ruta_servidor + '/' + this.recurso + '/register',
+      usuario
     );
   }
 

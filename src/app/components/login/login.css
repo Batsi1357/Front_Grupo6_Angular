@@ -64,7 +64,8 @@ label {
   color: #e2e8f0;
 }
 
-input {
+input,
+select {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid #1e293b;
@@ -78,7 +79,8 @@ input::placeholder {
   color: #6b7280;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #4f46e5;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
@@ -114,4 +116,21 @@ input:focus {
 
 .btn.primary:hover:not(:disabled) {
   transform: translateY(-1px);
+}
+
+.btn.secondary {
+  background: #374151;
+  color: #e2e8f0;
+  box-shadow: none;
+  border: 1px solid #4b5563;
+}
+
+.btn.secondary:hover:not(:disabled) {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+.btn.secondary:disabled {
+  background: #1f2937;
+  cursor: not-allowed;
 }
