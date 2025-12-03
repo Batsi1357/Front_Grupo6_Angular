@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'  // para usar cuando el backend está local
+  apiUrl: 'https://tp-grupo6-web.onrender.com'
 };
