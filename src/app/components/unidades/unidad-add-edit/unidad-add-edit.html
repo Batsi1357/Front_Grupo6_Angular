@@ -1,0 +1,60 @@
+<div class="unidad-container">
+  <div class="unidad-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Unidades</p>
+        <h1>{{ idUnidad > 0 ? 'Editar unidad' : 'Crear nueva unidad' }}</h1>
+        <p class="subtitle">Define los detalles básicos de la unidad.</p>
+      </div>
+      <div class="badge" *ngIf="idUnidad > 0">ID: {{ idUnidad }}</div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="Grabar()" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="titulo">Título *</label>
+          <input id="titulo" type="text" formControlName="titulo" placeholder="Ej. Fundamentos de Programación" />
+          <small class="error" *ngIf="crudForm.get('titulo')?.touched && crudForm.get('titulo')?.invalid">
+            El título es obligatorio (mínimo 5 caracteres).
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="categoria">Categoría *</label>
+          <input id="categoria" type="text" formControlName="categoria" placeholder="Ej. Tecnología" />
+          <small class="error" *ngIf="crudForm.get('categoria')?.touched && crudForm.get('categoria')?.invalid">
+            La categoría es obligatoria (mínimo 3 caracteres).
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="nivel">Nivel</label>
+          <select id="nivel" formControlName="nivel">
+            <option value="">Selecciona un nivel</option>
+            <option value="1">Básico</option>
+            <option value="2">Intermedio</option>
+            <option value="3">Avanzado</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="duracion">Duración (horas)</label>
+          <input id="duracion" type="number" min="0" formControlName="duracion" placeholder="Ej. 20" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="descripcion">Descripción *</label>
+        <textarea id="descripcion" rows="4" formControlName="descripcion" placeholder="Describe brevemente el contenido de la unidad"></textarea>
+        <small class="error" *ngIf="crudForm.get('descripcion')?.touched && crudForm.get('descripcion')?.invalid">
+          La descripción es obligatoria (mínimo 7 caracteres).
+        </small>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn ghost" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn primary" [disabled]="crudForm.invalid">Guardar unidad</button>
+      </div>
+    </form>
+  </div>
+</div>

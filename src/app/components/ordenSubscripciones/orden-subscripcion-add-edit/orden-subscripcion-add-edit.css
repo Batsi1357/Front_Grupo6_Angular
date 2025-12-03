@@ -1,0 +1,33 @@
+.form-card{background:var(--card-bg);border-radius:var(--radius-lg);padding:var(--card-padding);box-shadow:var(--shadow-card)}
+.form-actions{display:flex;gap:12px;justify-content:flex-end}
+.btn{border:none;border-radius:var(--btn-radius);padding:10px 14px;font-weight:700}
+:host{display:block;padding:24px;min-height:100vh;box-sizing:border-box}
+
+.orden-container{max-width:980px;margin:0 auto}
+
+.orden-card{background:#ffffff;border-radius:16px;box-shadow:0 12px 40px rgba(15,23,42,0.08);padding:28px}
+
+.header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}
+.eyebrow{letter-spacing:0.12em;text-transform:uppercase;font-size:12px;color:#6b7280;margin:0 0 4px 0}
+h1{margin:0;font-size:22px;color:#111827}
+.subtitle{margin:4px 0 0 0;color:#4b5563}
+.badge{background:#eef2ff;color:#4f46e5;border-radius:999px;padding:6px 12px;font-weight:600;font-size:13px}
+
+form{display:flex;flex-direction:column;gap:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-weight:600;color:#111827}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;font-size:14px;background:#f9fafb}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,0.12);background:#fff}
+.error{color:#b91c1c;font-size:12px}
+.actions{display:flex;justify-content:flex-end;gap:12px;margin-top:8px}
+
+.btn{border:none;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px;transition:transform 0.15s ease,box-shadow 0.15s ease,background-color 0.2s}
+.btn.primary{background:linear-gradient(135deg,#1ec4ff,#2ebcff);color:#111;box-shadow:0 10px 20px rgba(46,188,255,0.25)}
+.btn.primary:disabled{background:#cfeffb;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:#f3f4f6;color:#111827}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+
+@media (max-width:720px){:host{padding:20px}.actions{flex-direction:column;align-items:stretch}}
+.btn.primary{background:linear-gradient(135deg,var(--primary-500),var(--primary-600));color:#fff}
+

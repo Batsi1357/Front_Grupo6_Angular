@@ -1,0 +1,61 @@
+<div class="list-container">
+  <div class="list-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Preguntas</p>
+        <h2>Listado de preguntas</h2>
+        <p class="subtitle">Consulta, crea o elimina preguntas.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" routerLink="/home">Cancelar</button>
+        <button class="btn secondary" (click)="cargarLista()">Actualizar</button>
+        <button class="btn primary" routerLink="/pregunta-add">Nueva pregunta</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="dsPreguntas?.data?.length; else emptyState">
+      <table mat-table [dataSource]="dsPreguntas" class="mat-elevation-z0 custom-table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.idPregunta }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="enunciado">
+          <th mat-header-cell *matHeaderCellDef>Enunciado</th>
+          <td mat-cell *matCellDef="let element">{{ element.Enunciado }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let element">{{ element.Tipo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="puntaje">
+          <th mat-header-cell *matHeaderCellDef>Puntaje</th>
+          <td mat-cell *matCellDef="let element">{{ element.Puntaje }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="actions-col">Acciones</th>
+          <td mat-cell *matCellDef="let element" class="actions-col">
+            <button class="btn ghost" [routerLink]="['/pregunta-edit', element.idPregunta]">Editar</button>
+            <button class="btn danger" (click)="borrar(element.idPregunta)">Eliminar</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty">
+        <p class="eyebrow">Sin preguntas</p>
+        <h3>No hay preguntas registradas</h3>
+        <p class="subtitle">Crea tu primera pregunta para comenzar.</p>
+        <button class="btn primary" routerLink="/pregunta-add">Crear pregunta</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

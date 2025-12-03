@@ -1,0 +1,72 @@
+<p>unidad-list works!</p>
+<div class="list-container">
+  <div class="list-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Unidades</p>
+        <h2>Listado de unidades</h2>
+        <p class="subtitle">Gestiona las unidades, revisa sus datos y elimina si es necesario.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" routerLink="/home">Cancelar</button>
+        <button class="btn secondary" (click)="CargarLista()">Listar unidades</button>
+        <button class="btn primary" routerLink="/unidad-add">Nueva unidad</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="dsUnidad?.data?.length; else emptyState">
+      <table mat-table [dataSource]="dsUnidad" class="mat-elevation-z0 custom-table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.idUnidad }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef>Título</th>
+          <td mat-cell *matCellDef="let element">{{ element.titulo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let element">{{ element.descripcion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nivel">
+          <th mat-header-cell *matHeaderCellDef>Nivel</th>
+          <td mat-cell *matCellDef="let element">{{ element.nivel || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef>Categoría</th>
+          <td mat-cell *matCellDef="let element">{{ element.categoria }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="duracion">
+          <th mat-header-cell *matHeaderCellDef>Duración</th>
+          <td mat-cell *matCellDef="let element">{{ element.duracion }} h</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="actions-col">Acciones</th>
+          <td mat-cell *matCellDef="let element" class="actions-col">
+            <button class="btn ghost" [routerLink]="['/unidad-edit', element.idUnidad]">Editar</button>
+            <button class="btn danger" (click)="Borrar(element.idUnidad)">Eliminar</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty">
+        <p class="eyebrow">Sin unidades</p>
+        <h3>No hay unidades registradas</h3>
+        <p class="subtitle">Crea tu primera unidad para empezar a trabajar.</p>
+        <button class="btn primary" routerLink="/unidad-add">Crear unidad</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

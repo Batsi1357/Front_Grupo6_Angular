@@ -18,8 +18,6 @@ import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list
 import { PreguntaAddEdit } from './components/preguntas/pregunta-add-edit/pregunta-add-edit';
 import { RespuestaList } from './components/respuestas/respuesta-list/respuesta-list';
 import { RespuestaAddEdit } from './components/respuestas/respuesta-add-edit/respuesta-add-edit';
-import { ClienteList } from './components/clientes/cliente-list/cliente-list';
-import { ClienteAddEdit } from './components/clientes/cliente-add-edit/cliente-add-edit';
 import { autorizarConsultaGuard } from './guards/autorizar-consulta-guard';
 import { autorizarRegistroGuard } from './guards/autorizar-registro-guard';
 
@@ -27,9 +25,6 @@ const routes: Routes = [
   { path: '', component: Login },
   { path: 'login', component: Login },
   { path: 'home', component: Home, canActivate: [autorizarConsultaGuard] },
-  { path: 'cliente-list', component: ClienteList, canActivate: [autorizarConsultaGuard] },
-  { path: 'cliente-add', component: ClienteAddEdit, canActivate: [autorizarRegistroGuard] },
-  { path: 'cliente-edit/:id', component: ClienteAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'unidad-list', component: UnidadList, canActivate: [autorizarConsultaGuard] },
   { path: 'unidad-add', component: UnidadAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'unidad-edit/:id', component: UnidadAddEdit, canActivate: [autorizarRegistroGuard] },

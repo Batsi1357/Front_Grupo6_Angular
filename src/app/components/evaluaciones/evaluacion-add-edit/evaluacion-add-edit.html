@@ -1,0 +1,52 @@
+<div class="form-container">
+  <div class="form-card">
+    <div class="header">
+      <div>
+        <p class="eyebrow">Evaluaciones</p>
+        <h2>{{ idEvaluacion ? 'Editar evaluacion' : 'Nueva evaluacion' }}</h2>
+        <p class="subtitle">Completa los datos de la evaluación.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn ghost" routerLink="/home">Cancelar</button>
+        <button class="btn secondary" routerLink="/evaluacion-list">Ver listado</button>
+      </div>
+    </div>
+
+    <form [formGroup]="crudForm" (ngSubmit)="Grabar()" class="form-grid">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input id="titulo" type="text" formControlName="titulo" placeholder="Nombre de la evaluación" />
+        <small *ngIf="crudForm.get('titulo')?.invalid && crudForm.get('titulo')?.touched">
+          Ingresa un título (mínimo 6 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group full">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" rows="3" formControlName="descripcion" placeholder="Descripción de la evaluación"></textarea>
+        <small *ngIf="crudForm.get('descripcion')?.invalid && crudForm.get('descripcion')?.touched">
+          Ingresa una descripción (mínimo 7 caracteres).
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="fechaInicio">Fecha inicio</label>
+        <input id="fechaInicio" type="date" formControlName="fechaInicio" />
+      </div>
+
+      <div class="form-group">
+        <label for="duracion">Duración (min)</label>
+        <input id="duracion" type="number" min="0" formControlName="duracion" />
+      </div>
+
+      <div class="form-group">
+        <label for="idUnidad">ID Unidad</label>
+        <input id="idUnidad" type="number" min="0" formControlName="idUnidad" placeholder="ID de la unidad" />
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
