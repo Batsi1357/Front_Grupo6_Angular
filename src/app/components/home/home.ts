@@ -16,12 +16,17 @@ export class Home {
 
   clienteData?: cliente;
   showClienteCard = false;
+  currentSection: 'home' | 'about' = 'home';
 
   constructor(
     private router: Router,
     private clienteService: ClienteService,
     private snack: MatSnackBar
   ) {}
+
+  switchSection(section: 'home' | 'about'): void {
+    this.currentSection = section;
+  }
 
   goToUnidadList(): void {
     this.router.navigate(['/unidad-list']);
@@ -87,8 +92,24 @@ export class Home {
     this.router.navigate(['/clase-add']);
   }
 
-  goToClienteQueries(): void {
+  goToClienteList(): void {
     this.router.navigate(['/cliente-list']);
+  }
+
+  goToRolList(): void {
+    this.router.navigate(['/rol-list']);
+  }
+
+  goToRolCreate(): void {
+    this.router.navigate(['/rol-add']);
+  }
+
+  goToUsuarioList(): void {
+    this.router.navigate(['/usuarios-list']);
+  }
+
+  goToUsuarioCreate(): void {
+    this.router.navigate(['/usuarios-add']);
   }
 
   toggleClienteCard(): void {

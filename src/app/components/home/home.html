@@ -2,23 +2,37 @@
 
 <div class="home-container">
 
-  <!-- Barra superior -->
+  <!-- Barra superior con navegación principal -->
   <header class="top-bar">
-    <div class="top-bar-left"></div>
-    <h1 class="title">Manitos arriba</h1>
-    <div class="top-bar-actions">
-      <button class="avatar-btn" (click)="toggleClienteCard()" title="Ver datos de cliente">
-        <span class="avatar-icon"></span>
-      </button>
-      <button class="exit-btn" (click)="salir()">Salir</button>
+    <div class="top-bar-content">
+      <h1 class="title">Manitos arriba</h1>
+      
+      <!-- Navegación principal (Home / Sobre Nosotros) -->
+      <nav class="main-navbar">
+        <button class="main-nav-btn" [class.active]="currentSection === 'home'" (click)="switchSection('home')">
+          🏠 Home
+        </button>
+        <button class="main-nav-btn" [class.active]="currentSection === 'about'" (click)="switchSection('about')">
+          ℹ️ Sobre Nosotros
+        </button>
+      </nav>
+
+      <!-- Acciones del usuario -->
+      <div class="top-bar-actions">
+        <button class="avatar-btn" (click)="toggleClienteCard()" title="Ver datos de cliente">
+          <span class="avatar-icon">👤</span>
+        </button>
+        <button class="exit-btn" (click)="salir()">Salir</button>
+      </div>
     </div>
   </header>
 
+  <!-- Tarjeta de cliente (dropdown) -->
   <div class="cliente-card" *ngIf="showClienteCard">
     <div class="cliente-header">
-      <span class="avatar-icon small"></span>
+      <span class="avatar-icon">👤</span>
       <div>
-        <p class="eyebrow">Cliente</p>
+        <p class="eyebrow">Perfil</p>
         <h3>{{ clienteData?.Nombre || 'Cliente' }} {{ clienteData?.Apellido || '' }}</h3>
       </div>
     </div>
@@ -33,6 +47,212 @@
     </ng-template>
   </div>
 
-  <!-- Contenido principal del home -->
-  <main class="home-content">
-    <div class="content-gr
+  <!-- SECCIÓN HOME: Componentes y módulos -->
+  <main class="home-content" *ngIf="currentSection === 'home'">
+    <div class="home-header">
+      <h2>Gestión de Contenidos</h2>
+      <p>Selecciona un módulo para acceder a la gestión de contenidos</p>
+    </div>
+
+    <div class="modules-grid">
+      <!-- Unidades -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">📚</span>
+          <h3>Unidades</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToUnidadList()" title="Ver unidades">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToUnidadCreate()" title="Crear unidad">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Clases -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">🎓</span>
+          <h3>Clases</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToClaseList()" title="Ver clases">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToClaseCreate()" title="Crear clase">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Clientes -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">👥</span>
+          <h3>Clientes</h3>
+        </div>
+        <div class="module-actions queries-actions">
+          <button class="action-btn query-btn query-method" (click)="goToClienteList()" title="Query Method">
+            Query Method
+          </button>
+          <button class="action-btn query-btn query-sql" (click)="goToClienteList()" title="SQL Nativo">
+            SQL Nativo
+          </button>
+          <button class="action-btn query-btn query-jpql" (click)="goToClienteList()" title="JPQL">
+            JPQL
+          </button>
+        </div>
+      </div>
+
+      <!-- Suscripciones -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">📋</span>
+          <h3>Suscripciones</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToSubscripcionList()" title="Ver suscripciones">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToSubscripcionCreate()" title="Crear suscripción">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Órdenes de Suscripción -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">🛒</span>
+          <h3>Órdenes</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToOrdenSubscripcionList()" title="Ver órdenes">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToOrdenSubscripcionCreate()" title="Crear orden">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Oportunidades -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">🎯</span>
+          <h3>Oportunidades</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToOportunidadList()" title="Ver oportunidades">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToOportunidadCreate()" title="Crear oportunidad">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Evaluaciones -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">✅</span>
+          <h3>Evaluaciones</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToEvaluacionList()" title="Ver evaluaciones">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToEvaluacionCreate()" title="Crear evaluación">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Preguntas -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">❓</span>
+          <h3>Preguntas</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToPreguntaList()" title="Ver preguntas">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToPreguntaCreate()" title="Crear pregunta">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+
+      <!-- Respuestas -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-icon">💬</span>
+          <h3>Respuestas</h3>
+        </div>
+        <div class="module-actions">
+          <button class="action-btn primary-btn" (click)="goToRespuestaList()" title="Ver respuestas">
+            <span class="btn-icon">📋</span> Lista
+          </button>
+          <button class="action-btn secondary-btn" (click)="goToRespuestaCreate()" title="Crear respuesta">
+            <span class="btn-icon">➕</span> Nueva
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SECCIÓN SOBRE NOSOTROS -->
+  <main class="about-content" *ngIf="currentSection === 'about'">
+    <div class="about-container">
+      <section class="welcome-card">
+        <h2>Bienvenido a Manitos Arriba</h2>
+        <p>Selecciona una sección desde la barra de navegación superior para empezar.</p>
+      </section>
+
+      <section class="info-card">
+        <h2>Acerca de Nosotros</h2>
+        <p>Manitos Arriba es una plataforma completa de gestión educativa que te permite administrar:</p>
+        <ul>
+          <li><strong>Unidades:</strong> Organiza tu contenido en unidades temáticas</li>
+          <li><strong>Clases:</strong> Crea y gestiona tus clases en línea</li>
+          <li><strong>Clientes:</strong> Gestiona la información de tus estudiantes</li>
+          <li><strong>Suscripciones:</strong> Administra los planes de acceso</li>
+          <li><strong>Órdenes:</strong> Controla las órdenes de compra y suscripción</li>
+          <li><strong>Oportunidades:</strong> Identifica nuevas oportunidades de negocio</li>
+          <li><strong>Evaluaciones:</strong> Crea y califica evaluaciones</li>
+          <li><strong>Preguntas y Respuestas:</strong> Gestiona cuestionarios interactivos</li>
+        </ul>
+      </section>
+
+      <section class="features-card">
+        <h2>Características Principales</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">🎯</span>
+            <h3>Fácil de Usar</h3>
+            <p>Interfaz intuitiva diseñada para simplificar tu trabajo</p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📊</span>
+            <h3>Análisis Completos</h3>
+            <p>Reportes y estadísticas detalladas de tu actividad</p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔒</span>
+            <h3>Seguro</h3>
+            <p>Tu información está protegida con autenticación JWT</p>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <h3>Rápido</h3>
+            <p>Rendimiento optimizado para la mejor experiencia</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+</div>

@@ -63,13 +63,25 @@ export class Login implements OnInit {
     const { username, password } = this.loginForm.value;
 
     this.loginService.login({ username, password }).subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: (resp) => {
+        console.log('LoginComponent: success response', resp);
+        this.router.navigate(['/home']);
+      },
       error: (error) => {
+        console.error('LoginComponent: error response', error);
         let msg = 'Ocurrio un error inesperado, por favor intenta mas tarde';
         if (error.status === 0) {
           msg = 'No se pudo conectar con el servidor (¿backend apagado?).';
         } else if (error.status === 401) {
           msg = 'Credenciales incorrectas, por favor intenta de nuevo';
+        }
+        // If backend returned a JSON error body, try to show it in console
+        try {
+          if (error.error) {
+            console.log('Login error body:', error.error);
+          }
+        } catch (e) {
+          // ignore
         }
         this.snack.open(msg, 'OK', { duration: 3500 });
       },

@@ -2,13 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { evaluacion } from '../models/evaluacion-model';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EvaluacionService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   recurso: string = 'Evaluacion';
 
   constructor(private http: HttpClient) {}

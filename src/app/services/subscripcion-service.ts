@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { subscripcion } from '../models/subscripcion-model';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SubscripcionService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   recurso: string = "Subscripcion";
 
   constructor(private http: HttpClient) {}

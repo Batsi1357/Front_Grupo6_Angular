@@ -10,9 +10,21 @@ export class AutorizacionInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Skip token attachment for login endpoints
-    if (req.url.includes('/login') || req.url.includes('/auth/login') || req.url.includes('/Usuario/login')) {
-      return next.handle(req);
+    // Skip token attachment for login endpoints (case-insensitive)
+    try {
+      const reqUrl = new URL(req.url);
+      const pathname = (reqUrl.pathname || '').toLowerCase();
+      if (pathname === '/auth/login' || pathname.endsWith('/login') || pathname === '/usuario/login') {
+        console.log('AutorizacionInterceptor: skipping auth for', req.url);
+        return next.handle(req);
+      }
+    } catch (e) {
+      // If URL cannot be parsed (e.g., relative urls), fallback to previous contains check
+      const urlLower = req.url.toLowerCase();
+      if (urlLower.includes('/auth/login') || urlLower.includes('/usuario/login') || urlLower.endsWith('/login')) {
+        console.log('AutorizacionInterceptor: skipping auth (fallback) for', req.url);
+        return next.handle(req);
+      }
     }
 
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');

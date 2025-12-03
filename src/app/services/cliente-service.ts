@@ -2,13 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { cliente } from '../models/cliente-model';
 import { catchError, map, throwError, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   recurso: string = 'Cliente';
 
   constructor(private http: HttpClient) {}

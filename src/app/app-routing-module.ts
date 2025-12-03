@@ -12,6 +12,8 @@ import { OportunidadList } from './components/oportunidades/oportunidad-list/opo
 import { OportunidadAddEdit } from './components/oportunidades/oportunidad-add-edit/oportunidad-add-edit';
 import { ClaseList } from './components/clases/clase-list/clase-list';
 import { ClaseAddEdit } from './components/clases/clase-add-edit/clase-add-edit';
+import { ClienteList } from './components/clientes/cliente-list/cliente-list';
+import { ClienteAddEdit } from './components/clientes/cliente-add-edit/cliente-add-edit';
 import { EvaluacionList } from './components/evaluaciones/evaluacion-list/evaluacion-list';
 import { EvaluacionAddEdit } from './components/evaluaciones/evaluacion-add-edit/evaluacion-add-edit';
 import { PreguntaList } from './components/preguntas/pregunta-list/pregunta-list';
@@ -49,6 +51,9 @@ const routes: Routes = [
   { path: 'clase-list', component: ClaseList, canActivate: [autorizarConsultaGuard] },
   { path: 'clase-add', component: ClaseAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'clase-edit/:id', component: ClaseAddEdit, canActivate: [autorizarRegistroGuard] },
+  { path: 'cliente-list', component: ClienteList, canActivate: [autorizarConsultaGuard] },
+  { path: 'cliente-add', component: ClienteAddEdit, canActivate: [autorizarRegistroGuard] },
+  { path: 'cliente-edit/:id', component: ClienteAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'oportunidad-list', component: OportunidadList, canActivate: [autorizarConsultaGuard] },
   { path: 'oportunidad-add', component: OportunidadAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'oportunidad-edit/:id', component: OportunidadAddEdit, canActivate: [autorizarRegistroGuard] },

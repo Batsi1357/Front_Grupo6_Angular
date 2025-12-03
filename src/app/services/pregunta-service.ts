@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { pregunta } from '../models/pregunta-model';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreguntaService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   recurso: string = "Pregunta";
 
   constructor(private http: HttpClient) {}

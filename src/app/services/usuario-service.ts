@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 import { usuario } from '../models/usuario-model';
 import { JwtResponseModel } from '../models/jwtResponse';
 import { tap } from 'rxjs';
-import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   recurso: string = 'Usuario';
 
   constructor(private http: HttpClient) {}
@@ -25,9 +24,9 @@ export class UsuarioService {
   }
 
   register(usuario: usuario) {
-    // Endpoint para registro público de nuevos usuarios
+    // Endpoint para registro público de nuevos usuarios (usa /insert del backend)
     return this.http.post<usuario>(
-      this.ruta_servidor + '/' + this.recurso + '/register',
+      this.ruta_servidor + '/' + this.recurso + '/insert',
       usuario
     );
   }

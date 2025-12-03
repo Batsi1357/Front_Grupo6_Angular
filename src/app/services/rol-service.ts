@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { rol } from '../models/rol-model';
-import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -9,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class RolService {
   
-  ruta_servidor:string = environment.apiUrl;
+  ruta_servidor:string = 'http://localhost:8080';
 
   recurso:string="Rol";
 

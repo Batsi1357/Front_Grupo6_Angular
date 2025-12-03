@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ordenSubscripcion } from '../models/ordenSubscripcion-model';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdenSubscripcionService {
-  ruta_servidor: string = environment.apiUrl;
+  ruta_servidor: string = 'http://localhost:8080';
   // El backend expone /OrderSubscripcion (sin la "n" en Order)
   recurso: string = "OrderSubscripcion";
 

@@ -1,5 +1,10 @@
 <div class="container-clientes">
-  <h1>Consultas de Clientes</h1>
+  <div class="header-with-back">
+    <button class="btn-volver" (click)="volverAlHome()" title="Volver al Home">
+      ⬅️ Volver al Home
+    </button>
+    <h1>Consultas de Clientes</h1>
+  </div>
   <p class="subtitulo">4 Queries Diferentes - Cliente Entity</p>
 
   <!-- Panel de Búsquedas -->
@@ -105,26 +110,31 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
           <th>Email</th>
           <th>Edad</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
           <th>Celular</th>
           <th>Dirección</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let cliente of clientesFiltrados" class="fila-cliente">
-          <td>{{ cliente.idCliente }}</td>
-          <td>{{ cliente.Nombre }}</td>
-          <td>{{ cliente.Apellido }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>{{ cliente.edad }}</td>
-          <td>{{ cliente.Celular }}</td>
-          <td>{{ cliente.Direccion }}</td>
+          <td [class.celda-llena]="cliente.idCliente" [class.celda-vacia]="!cliente.idCliente">{{ cliente.idCliente || '-' }}</td>
+          <td [class.celda-llena]="cliente.email" [class.celda-vacia]="!cliente.email">{{ cliente.email || '-' }}</td>
+          <td [class.celda-llena]="cliente.edad" [class.celda-vacia]="!cliente.edad">{{ cliente.edad || '-' }}</td>
+          <td [class.celda-llena]="cliente.Nombre" [class.celda-vacia]="!cliente.Nombre">{{ cliente.Nombre || '-' }}</td>
+          <td [class.celda-llena]="cliente.Apellido" [class.celda-vacia]="!cliente.Apellido">{{ cliente.Apellido || '-' }}</td>
+          <td [class.celda-llena]="cliente.Celular" [class.celda-vacia]="!cliente.Celular">{{ cliente.Celular || '-' }}</td>
+          <td [class.celda-llena]="cliente.Direccion" [class.celda-vacia]="!cliente.Direccion">{{ cliente.Direccion || '-' }}</td>
         </tr>
       </tbody>
     </table>
+
+    <div class="info-box" *ngIf="clientesFiltrados.length > 0">
+      <p><strong>Nota:</strong> Los campos Nombre, Apellido, Celular y Dirección no están siendo devueltos por el backend. 
+      Contacta al administrador del servidor para que incluya estos campos en la respuesta del endpoint <code>/Cliente</code>.</p>
+    </div>
 
     <div class="no-resultados" *ngIf="clientesFiltrados.length === 0 && !cargando">
       <p>❌ No se encontraron clientes con los criterios de búsqueda</p>
