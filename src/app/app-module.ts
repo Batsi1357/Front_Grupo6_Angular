@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Home } from './components/home/home';
 import { UnidadAddEdit } from './components/unidades/unidad-add-edit/unidad-add-edit';
 import { UnidadList } from './components/unidades/unidad-list/unidad-list';
+import { UnidadQueries } from './components/unidades/unidad-queries/unidad-queries';
 import { ClaseAddEdit } from './components/clases/clase-add-edit/clase-add-edit';
 import { ClaseList } from './components/clases/clase-list/clase-list';
 import { EvaluacionAddEdit } from './components/evaluaciones/evaluacion-add-edit/evaluacion-add-edit';
@@ -45,6 +46,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
     Home,
     UnidadAddEdit,
     UnidadList,
+    UnidadQueries,
     ClaseAddEdit,
     ClaseList,
     EvaluacionAddEdit,

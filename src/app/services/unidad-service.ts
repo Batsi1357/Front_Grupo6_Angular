@@ -30,6 +30,10 @@ export class UnidadService {
     return this.http.get<unidad[]>(this.ruta_servidor+"/"+this.recurso, this.authHeaders());
   }
 
+  list() {
+    return this.http.get<unidad[]>(this.ruta_servidor+"/"+this.recurso, this.authHeaders());
+  }
+
   new(unidad:unidad)
   {
     return this.http.post<unidad>(this.ruta_servidor+"/"+this.recurso + "/insert",unidad, this.authHeaders());
@@ -48,13 +52,13 @@ export class UnidadService {
   update(unidad:unidad) {
     return this.http.put<unidad>(this.ruta_servidor + '/' + this.recurso + '/update',unidad, this.authHeaders());
   }
-    // GET /Unidad/buscar-categoria?categoria=...
+  // GET /Unidad/buscar-categoria?categoria=...
   buscarPorCategoria(categoria: string) {
     const params = new HttpParams().set('categoria', categoria); return this.http.get<unidad[]>(`${this.ruta_servidor}/${this.recurso}/buscar-categoria`,{ params, ...this.authHeaders() });
   }
 
   // GET /Unidad/buscar-nivel?nivel=...
-  buscarPorNivelMinimo(nivel: number) {
+  buscarPorNivel(nivel: number) {
     const params = new HttpParams().set('nivel', nivel.toString());
     return this.http.get<unidad[]>(
       `${this.ruta_servidor}/${this.recurso}/buscar-nivel`,
@@ -62,13 +66,21 @@ export class UnidadService {
     );
   }
 
+  buscarPorNivelMinimo(nivel: number) {
+    return this.buscarPorNivel(nivel);
+  }
+
   // GET /Unidad/buscar-duracion?minDuracion=...
-  buscarPorDuracionMinima(minDuracion: number) {
+  buscarPorDuracion(minDuracion: number) {
     const params = new HttpParams().set('minDuracion', minDuracion.toString());
     return this.http.get<unidad[]>(
       `${this.ruta_servidor}/${this.recurso}/buscar-duracion`,
       { params, ...this.authHeaders() }
     );
+  }
+
+  buscarPorDuracionMinima(minDuracion: number) {
+    return this.buscarPorDuracion(minDuracion);
   }
 
   // GET /Unidad/buscar-titulo?texto=...
@@ -83,5 +95,4 @@ export class UnidadService {
   updateLogo(idUnidad: number, logoFormData: FormData){
     return this.http.put<unidad>(this.ruta_servidor+"/"+this.recurso+"/"+"logo"+"/"+idUnidad.toString(),logoFormData, this.authHeaders());
   }
-  
 }

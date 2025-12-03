@@ -51,7 +51,7 @@ export class ClienteList implements OnInit {
         this.mensaje = 'Error al cargar clientes';
       }
     });
-  }
+  } 
 
   private transformarDatos(data: any[]): cliente[] {
     return data.map((item, index) => {

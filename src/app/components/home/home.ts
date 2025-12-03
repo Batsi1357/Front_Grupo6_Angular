@@ -28,6 +28,10 @@ export class Home {
     this.currentSection = section;
   }
 
+  goToUnidadQueries(): void {
+    this.router.navigate(['/unidad-queries']);
+  }
+
   goToUnidadList(): void {
     this.router.navigate(['/unidad-list']);
   }

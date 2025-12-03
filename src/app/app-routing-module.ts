@@ -4,6 +4,7 @@ import { Login } from './components/login/login';
 import { Home } from './components/home/home';
 import { UnidadList } from './components/unidades/unidad-list/unidad-list';
 import { UnidadAddEdit } from './components/unidades/unidad-add-edit/unidad-add-edit';
+import { UnidadQueries } from './components/unidades/unidad-queries/unidad-queries';
 import { OrdenSubscripcionList } from './components/ordenSubscripciones/orden-subscripcion-list/orden-subscripcion-list';
 import { OrdenSubscripcionAddEdit } from './components/ordenSubscripciones/orden-subscripcion-add-edit/orden-subscripcion-add-edit';
 import { SubscripcionList } from './components/subscripciones/subscripcion-list/subscripcion-list';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'home', component: Home, canActivate: [autorizarConsultaGuard] },
   { path: 'unidad-list', component: UnidadList, canActivate: [autorizarConsultaGuard] },
+  { path: 'unidad-queries', component: UnidadQueries, canActivate: [autorizarConsultaGuard] },
   { path: 'unidad-add', component: UnidadAddEdit, canActivate: [autorizarRegistroGuard] },
   { path: 'unidad-edit/:id', component: UnidadAddEdit, canActivate: [autorizarRegistroGuard] },
   {

@@ -13,7 +13,64 @@
       </div>
     </div>
 
-    <div class="table-wrapper" *ngIf="dsEvaluacion.data.length; else emptyState">
+      <div class="panel-busquedas">
+        <div class="query-card">
+          <div class="query-header">
+            <span class="query-badge query-method">Query Method</span>
+            <h3>Duracion maxima (minutos)</h3>
+          </div>
+          <div class="query-body">
+            <input type="number" class="input-busqueda" [(ngModel)]="duracionMax" placeholder="Ej: 60" min="1" (keyup.enter)="buscarPorDuracionMax()">
+            <button class="btn-buscar" (click)="buscarPorDuracionMax()" [disabled]="cargando">Buscar</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-header">
+            <span class="query-badge sql-nativo">SQL Nativo</span>
+            <h3>Fecha inicio mayor a</h3>
+          </div>
+          <div class="query-body">
+            <input type="date" class="input-busqueda" [(ngModel)]="fechaInicio" (keyup.enter)="buscarPorFechaInicio()">
+            <button class="btn-buscar" (click)="buscarPorFechaInicio()" [disabled]="cargando">Buscar</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-header">
+            <span class="query-badge sql-nativo">SQL Nativo</span>
+            <h3>Titulo contiene</h3>
+          </div>
+          <div class="query-body">
+            <input type="text" class="input-busqueda" [(ngModel)]="tituloBusqueda" placeholder="Texto en el titulo" (keyup.enter)="buscarPorTitulo()">
+            <button class="btn-buscar" (click)="buscarPorTitulo()" [disabled]="cargando">Buscar</button>
+          </div>
+        </div>
+
+        <div class="query-card">
+          <div class="query-header">
+            <span class="query-badge jpql">JPQL</span>
+            <h3>Entre fechas</h3>
+          </div>
+          <div class="query-body rango-fechas">
+            <input type="date" class="input-busqueda" [(ngModel)]="rangoInicio" (keyup.enter)="buscarEntreFechas()">
+            <span class="hasta-label">a</span>
+            <input type="date" class="input-busqueda" [(ngModel)]="rangoFin" (keyup.enter)="buscarEntreFechas()">
+            <button class="btn-buscar" (click)="buscarEntreFechas()" [disabled]="cargando">Buscar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controles">
+        <button class="btn-todos" (click)="CargarLista()" [disabled]="cargando">Ver todas</button>
+        <button class="btn-limpiar" (click)="limpiarFiltros()" [disabled]="cargando">Limpiar</button>
+      </div>
+
+      <div class="mensaje-estado" *ngIf="mensaje">
+        {{ mensaje }}
+      </div>
+
+      <div class="table-wrapper" *ngIf="dsEvaluacion.data.length; else emptyState">
       <table mat-table [dataSource]="dsEvaluacion" class="mat-elevation-z0 custom-table">
 
         <ng-container matColumnDef="idEvaluacion">

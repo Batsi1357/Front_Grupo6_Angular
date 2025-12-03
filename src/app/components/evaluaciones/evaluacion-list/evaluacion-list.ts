@@ -16,6 +16,14 @@ export class EvaluacionList {
 
 
   dsEvaluacion = new MatTableDataSource<evaluacion>();
+  mensaje = '';
+  cargando = false;
+
+  duracionMax = 0;
+  fechaInicio = '';
+  tituloBusqueda = '';
+  rangoInicio = '';
+  rangoFin = '';
 
   displayedColumns:string[]=['idEvaluacion','titulo','descripcion','fechaInicio','duracion','idUnidad','opciones'];
 
@@ -46,10 +54,91 @@ CargarLista(){
       },
       error: (err)=>{
           console.log(err);
+          this.mensaje = 'Error al cargar evaluaciones';
       }      
     }
   );  
 }
+
+  private setResultados(data: evaluacion[], mensajeOk: string) {
+    this.dsEvaluacion = new MatTableDataSource(data);
+    this.mensaje = mensajeOk;
+    this.cargando = false;
+  }
+
+  buscarPorDuracionMax(): void {
+    if (!this.duracionMax || this.duracionMax <= 0) {
+      this.mensaje = 'Ingresa una duración máxima válida';
+      return;
+    }
+    this.cargando = true;
+    this.evaluacionService.buscarPorDuracionMaxima(this.duracionMax).subscribe({
+      next: (data) => this.setResultados(data, `${data.length} evaluacion(es) con duracion <= ${this.duracionMax} min`),
+      error: (err) => {
+        console.error(err);
+        this.cargando = false;
+        this.mensaje = 'Error al buscar por duración';
+      }
+    });
+  }
+
+  buscarPorFechaInicio(): void {
+    if (!this.fechaInicio) {
+      this.mensaje = 'Selecciona una fecha de inicio';
+      return;
+    }
+    this.cargando = true;
+    this.evaluacionService.buscarPorFechaInicio(this.fechaInicio).subscribe({
+      next: (data) => this.setResultados(data, `${data.length} evaluacion(es) con fecha inicio > ${this.fechaInicio}`),
+      error: (err) => {
+        console.error(err);
+        this.cargando = false;
+        this.mensaje = 'Error al buscar por fecha de inicio';
+      }
+    });
+  }
+
+  buscarPorTitulo(): void {
+    if (!this.tituloBusqueda.trim()) {
+      this.mensaje = 'Ingresa un texto para el título';
+      return;
+    }
+    this.cargando = true;
+    this.evaluacionService.buscarPorTitulo(this.tituloBusqueda).subscribe({
+      next: (data) => this.setResultados(data, `${data.length} evaluacion(es) que contienen \"${this.tituloBusqueda}\"`),
+      error: (err) => {
+        console.error(err);
+        this.cargando = false;
+        this.mensaje = 'Error al buscar por título';
+      }
+    });
+  }
+
+  buscarEntreFechas(): void {
+    if (!this.rangoInicio || !this.rangoFin) {
+      this.mensaje = 'Completa ambas fechas';
+      return;
+    }
+    this.cargando = true;
+    this.evaluacionService.buscarEntreFechas(this.rangoInicio, this.rangoFin).subscribe({
+      next: (data) => this.setResultados(data, `${data.length} evaluacion(es) entre ${this.rangoInicio} y ${this.rangoFin}`),
+      error: (err) => {
+        console.error(err);
+        this.cargando = false;
+        this.mensaje = 'Error al buscar entre fechas';
+      }
+    });
+  }
+
+  limpiarFiltros(): void {
+    this.duracionMax = 0;
+    this.fechaInicio = '';
+    this.tituloBusqueda = '';
+    this.rangoInicio = '';
+    this.rangoFin = '';
+    this.mensaje = '';
+    this.CargarLista();
+  }
 
 Borrar(idEvaluacion:number){
     let dialogReference = this.dialog.open(DeleteConfirmation);
