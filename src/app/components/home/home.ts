@@ -87,6 +87,10 @@ export class Home {
     this.router.navigate(['/clase-add']);
   }
 
+  goToClienteQueries(): void {
+    this.router.navigate(['/cliente-list']);
+  }
+
   toggleClienteCard(): void {
     this.showClienteCard = !this.showClienteCard;
     if (this.showClienteCard && !this.clienteData) {

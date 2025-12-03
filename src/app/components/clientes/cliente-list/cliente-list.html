@@ -1,1 +1,137 @@
-<p>cliente-list works!</p>
+<div class="container-clientes">
+  <h1>Consultas de Clientes</h1>
+  <p class="subtitulo">4 Queries Diferentes - Cliente Entity</p>
+
+  <!-- Panel de Búsquedas -->
+  <div class="panel-busquedas">
+
+    <!-- Query 1: Buscar por Email Exacto (Query Method) -->
+    <div class="query-card">
+      <div class="query-header">
+        <span class="query-badge query-method">Query Method</span>
+        <h3>Buscar por Email Exacto</h3>
+      </div>
+      <div class="query-body">
+        <input
+          type="email"
+          [(ngModel)]="busquedaEmail"
+          placeholder="Ej: juan@gmail.com"
+          class="input-busqueda"
+          (keyup.enter)="buscarPorEmail()">
+        <button (click)="buscarPorEmail()" class="btn-buscar" [disabled]="cargando">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- Query 2: Buscar por Dominio de Email (SQL Nativo) -->
+    <div class="query-card">
+      <div class="query-header">
+        <span class="query-badge sql-nativo">SQL Nativo</span>
+        <h3>Buscar por Dominio de Email</h3>
+      </div>
+      <div class="query-body">
+        <input
+          type="text"
+          [(ngModel)]="busquedaDominio"
+          placeholder="Ej: @gmail.com o gmail.com"
+          class="input-busqueda"
+          (keyup.enter)="buscarPorDominio()">
+        <button (click)="buscarPorDominio()" class="btn-buscar" [disabled]="cargando">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- Query 3: Buscar por Edad Mínima (JPQL) -->
+    <div class="query-card">
+      <div class="query-header">
+        <span class="query-badge jpql">JPQL</span>
+        <h3>Buscar por Edad Mínima</h3>
+      </div>
+      <div class="query-body">
+        <input
+          type="number"
+          [(ngModel)]="busquedaEdad"
+          placeholder="Ej: 18"
+          class="input-busqueda"
+          min="0"
+          (keyup.enter)="buscarPorEdad()">
+        <button (click)="buscarPorEdad()" class="btn-buscar" [disabled]="cargando">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <!-- Query 4: Buscar por Nombre o Apellido (JPQL) -->
+    <div class="query-card">
+      <div class="query-header">
+        <span class="query-badge jpql">JPQL</span>
+        <h3>Buscar por Nombre o Apellido</h3>
+      </div>
+      <div class="query-body">
+        <input
+          type="text"
+          [(ngModel)]="busquedaTexto"
+          placeholder="Ej: Juan o Pérez"
+          class="input-busqueda"
+          (keyup.enter)="buscarPorTexto()">
+        <button (click)="buscarPorTexto()" class="btn-buscar" [disabled]="cargando">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Botones de Control -->
+  <div class="controles">
+    <button (click)="cargarTodos()" class="btn-todos" [disabled]="cargando">
+      📋 Ver Todos
+    </button>
+    <button (click)="limpiarBusqueda()" class="btn-limpiar" [disabled]="cargando">
+      🔄 Limpiar
+    </button>
+  </div>
+
+  <!-- Mensaje de Estado -->
+  <div class="mensaje-estado" *ngIf="mensaje">
+    <span [class.cargando]="cargando">{{ mensaje }}</span>
+  </div>
+
+  <!-- Tabla de Resultados -->
+  <div class="tabla-container">
+    <table class="tabla-clientes" *ngIf="clientesFiltrados.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Edad</th>
+          <th>Celular</th>
+          <th>Dirección</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientesFiltrados" class="fila-cliente">
+          <td>{{ cliente.idCliente }}</td>
+          <td>{{ cliente.Nombre }}</td>
+          <td>{{ cliente.Apellido }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.edad }}</td>
+          <td>{{ cliente.Celular }}</td>
+          <td>{{ cliente.Direccion }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="no-resultados" *ngIf="clientesFiltrados.length === 0 && !cargando">
+      <p>❌ No se encontraron clientes con los criterios de búsqueda</p>
+    </div>
+
+    <div class="loader" *ngIf="cargando">
+      <p>⏳ Cargando...</p>
+    </div>
+  </div>
+</div>

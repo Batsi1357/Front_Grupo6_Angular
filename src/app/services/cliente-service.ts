@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { cliente } from '../models/cliente-model';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, throwError, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,6 +12,11 @@ export class ClienteService {
   recurso: string = 'Cliente';
 
   constructor(private http: HttpClient) {}
+
+  // Listar todos los clientes
+  list(): Observable<cliente[]> {
+    return this.http.get<cliente[]>(`${this.ruta_servidor}/${this.recurso}`);
+  }
 
   getPerfil() {
     return this.http.get<cliente>(`${this.ruta_servidor}/${this.recurso}/perfil`).pipe(
@@ -25,5 +30,29 @@ export class ClienteService {
         return throwError(() => err);
       })
     );
+  }
+
+  // Query 1: Buscar por email exacto (Query Method)
+  buscarPorEmail(email: string): Observable<cliente[]> {
+    const params = new HttpParams().set('email', email);
+    return this.http.get<cliente[]>(`${this.ruta_servidor}/${this.recurso}/buscar-email`, { params });
+  }
+
+  // Query 2: Buscar por dominio de email (SQL Nativo)
+  buscarPorDominio(dominio: string): Observable<cliente[]> {
+    const params = new HttpParams().set('dominio', dominio);
+    return this.http.get<cliente[]>(`${this.ruta_servidor}/${this.recurso}/buscar-dominio`, { params });
+  }
+
+  // Query 3: Buscar por edad mínima (JPQL)
+  buscarPorEdadMinima(edadMin: number): Observable<cliente[]> {
+    const params = new HttpParams().set('edadMin', edadMin.toString());
+    return this.http.get<cliente[]>(`${this.ruta_servidor}/${this.recurso}/buscar-edad`, { params });
+  }
+
+  // Query 4: Buscar por nombre o apellido que contenga texto (JPQL)
+  buscarPorNombreOApellido(texto: string): Observable<cliente[]> {
+    const params = new HttpParams().set('texto', texto);
+    return this.http.get<cliente[]>(`${this.ruta_servidor}/${this.recurso}/buscar-nombre-apellido`, { params });
   }
 }
