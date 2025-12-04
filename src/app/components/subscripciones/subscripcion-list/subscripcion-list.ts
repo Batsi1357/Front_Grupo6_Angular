@@ -31,9 +31,24 @@ export class SubscripcionList implements OnInit {
       next: (data) => {
         const normalizados = (data || []).map((item: any) => ({
           idSubscripcion: item.idSubscripcion ?? item.id_subscripcion ?? item.id ?? 0,
-          Nombre: item.Nombre ?? item.nombre ?? '',
-          Descripcion: item.Descripcion ?? item.descripcion ?? '',
-          Precio: item.Precio ?? item.precio ?? 0,
+          Nombre:
+            item.Nombre ??
+            item.nombre ??
+            item.nombreSubscripcion ??
+            item.nombre_subscripcion ??
+            'Sin nombre',
+          Descripcion:
+            item.Descripcion ??
+            item.descripcion ??
+            item.descripcionSubscripcion ??
+            item.descripcion_subscripcion ??
+            'Sin descripción',
+          Precio:
+            item.Precio ??
+            item.precio ??
+            item.precioSubscripcion ??
+            item.precio_subscripcion ??
+            0,
         }));
         this.dsSubscripciones.data = normalizados as subscripcion[];
       },

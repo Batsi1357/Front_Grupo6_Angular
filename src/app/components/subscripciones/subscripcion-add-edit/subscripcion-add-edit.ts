@@ -87,10 +87,11 @@ export class SubscripcionAddEdit {
     const subForm = this.crudForm.value;
     const payload: any = {
       idSubscripcion: subForm.idSubscripcion,
-      Nombre: subForm.Nombre,
-      Descripcion: subForm.Descripcion,
-      Precio: subForm.Precio,
-      // el backend espera "claseid" en el DTO
+      // nombres en minúscula por compatibilidad con el backend
+      nombre: subForm.Nombre,
+      descripcion: subForm.Descripcion,
+      precio: Number(subForm.Precio),
+      // el backend espera "claseid" en el DTO; enviamos variantes
       claseid: subForm.idClase ? Number(subForm.idClase) : null,
       idClase: subForm.idClase ? Number(subForm.idClase) : null,
       clase: subForm.idClase ? { idClase: Number(subForm.idClase) } : undefined,
