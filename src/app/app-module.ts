@@ -34,6 +34,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor';
+import { UnidadGraph } from './components/unidades/unidad-graph/unidad-graph';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { AutorizacionInterceptor } from './interceptors/autorizacion-interceptor
     PreguntaList,
     Login,
     DeleteConfirmation,
+    UnidadGraph,
     
     
   ],
