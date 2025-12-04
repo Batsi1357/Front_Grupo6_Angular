@@ -17,6 +17,15 @@ export class Home {
   clienteData?: cliente;
   showClienteCard = false;
   currentSection: 'home' | 'about' = 'home';
+  private readonly clienteFallback: cliente = {
+    idCliente: 2,
+    Nombre: 'Fernando',
+    Apellido: 'Cruzada',
+    Direccion: 'Av Primaver 11',
+    Celular: '991258753',
+    email: 'elmascrack@hotmail.com',
+    edad: 20
+  };
 
   constructor(
     private router: Router,
@@ -126,17 +135,33 @@ export class Home {
   private cargarCliente(): void {
     this.clienteService.getPerfil().subscribe({
       next: (data) => {
-        this.clienteData = data;
+        this.clienteData = this.mapCliente(data);
       },
       error: (err) => {
         console.log(err);
         const msg =
           err.status === 401
-            ? 'No autorizado para ver el perfil de cliente.'
-            : 'No se pudieron obtener los datos del cliente';
+            ? 'No autorizado para ver el perfil de cliente. Mostrando datos de referencia.'
+            : 'No se pudieron obtener los datos del cliente. Mostrando datos de referencia.';
+        this.clienteData = this.clienteFallback;
         this.snack.open(msg, 'OK', { duration: 3000 });
       },
     });
+  }
+
+  private mapCliente(data: any): cliente {
+    if (!data) {
+      return this.clienteFallback;
+    }
+    return {
+      idCliente: data.idCliente || data.id || this.clienteFallback.idCliente,
+      Nombre: data.Nombre || data.nombre || this.clienteFallback.Nombre,
+      Apellido: data.Apellido || data.apellido || this.clienteFallback.Apellido,
+      Direccion: data.Direccion || data.direccion || this.clienteFallback.Direccion,
+      Celular: data.Celular || data.celular || this.clienteFallback.Celular,
+      email: data.email || data.Email || this.clienteFallback.email,
+      edad: data.edad || data.Edad || this.clienteFallback.edad
+    };
   }
 
   salir(): void {
